@@ -1,6 +1,9 @@
-import "@/styles/globals.css";
 import type { AppProps } from "next/app";
 import { Plus_Jakarta_Sans } from "next/font/google";
+
+// styles
+import "@/styles/globals.css";
+import "react-widgets/styles.css";
 
 // components
 import Navbar from "@/components/modules/Navbar/Navbar";
