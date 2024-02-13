@@ -80,8 +80,10 @@ const config: Config = {
         half: "0px 50% 50% 0px",
       },
       backgroundImage: {
-        "car-shadow": "url('./src/assets/svg/car-shadow.svg')",
-        "car-bg": "url('./src/assets/images/bg.png')",
+        "car-shadow": "url('/svg/car-shadow.svg')",
+        "car-bg": "url('/images/bg.png')",
+        banner1: "url('/images/adsBg1.png')",
+        banner2: "url('/images/adsBg2.png')",
       },
       screens: {
         xs: "425px",
