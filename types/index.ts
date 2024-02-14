@@ -17,3 +17,14 @@ export interface DropOffComponentProps {
 export interface MarkProps {
   isPick: boolean;
 }
+
+export interface CarInterface {
+  _id: string;
+  name: string;
+  type: string;
+  gasoline: number;
+  steering: string;
+  capacity: number;
+  price: number;
+  image: string;
+}
