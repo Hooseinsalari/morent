@@ -7,6 +7,7 @@ import "react-widgets/styles.css";
 
 // components
 import Navbar from "@/components/modules/Navbar/Navbar";
+import Footer from "@/components/modules/Footer/Footer";
 
 const plus = Plus_Jakarta_Sans({
   subsets: ["latin"],
@@ -19,6 +20,7 @@ export default function App({ Component, pageProps }: AppProps) {
     <div className={plus.className}>
       <Navbar />
       <Component {...pageProps} />
+      <Footer />
     </div>
   );
 }
