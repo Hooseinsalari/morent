@@ -11,6 +11,7 @@ import { CarInterface } from "@/types";
 import PickupDropoffDetails from "@/components/modules/PickupDropoffDetails/PickupDropoffDetails";
 import Banner from "@/components/templates/Index/Banner";
 import PopularCar from "@/components/templates/Index/PopularCar";
+import RecomendationCar from "@/components/templates/Index/RecomendationCar";
 
 export default function Home({ cars }: { cars: CarInterface[] }) {
   return (
@@ -18,6 +19,7 @@ export default function Home({ cars }: { cars: CarInterface[] }) {
       <Banner />
       <PickupDropoffDetails />
       <PopularCar cars={cars} />
+      <RecomendationCar cars={cars} />
     </div>
   );
 }
