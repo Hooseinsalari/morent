@@ -1,3 +1,5 @@
+import React from "react";
+
 export interface PickUpDropOffInterface {
   location: string;
   date: string;
@@ -35,4 +37,15 @@ export interface TagListsProps {
   li_2: string;
   li_3: string;
   li_4: string;
+}
+
+export interface QueryParamsFilter {
+  type: string[];
+  capacity: string[];
+  price: number;
+}
+
+export interface FilterBarProps {
+  queryParamsFilter: QueryParamsFilter;
+  setQueryParamsFilter: React.Dispatch<React.SetStateAction<QueryParamsFilter>>;
 }
