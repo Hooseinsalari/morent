@@ -13,19 +13,39 @@ export default function DesktopFilterBar({
 
   // ** handlers
   const typeCheckBoxHandler = (e: FormEvent<HTMLInputElement>) => {
-    let value = e.currentTarget.value;
-    setQueryParamsFilter({
-      ...queryParamsFilter,
-      type: [...queryParamsFilter.type, value],
-    });
+    const { checked, value } = e.currentTarget;
+
+    if (checked) {
+      setQueryParamsFilter({
+        ...queryParamsFilter,
+        type: [...queryParamsFilter.type, value],
+      });
+    } else {
+      const unselectedTypes = queryParamsFilter.type.filter((t) => t !== value);
+      setQueryParamsFilter({
+        ...queryParamsFilter,
+        type: unselectedTypes,
+      });
+    }
   };
 
   const capacityCheckBoxHandler = (e: FormEvent<HTMLInputElement>) => {
-    let value = e.currentTarget.value;
-    setQueryParamsFilter({
-      ...queryParamsFilter,
-      capacity: [...queryParamsFilter.capacity, value],
-    });
+    const { checked, value } = e.currentTarget;
+
+    if (checked) {
+      setQueryParamsFilter({
+        ...queryParamsFilter,
+        capacity: [...queryParamsFilter.capacity, value],
+      });
+    } else {
+      const unselectedCapacity = queryParamsFilter.capacity.filter(
+        (t) => t !== value
+      );
+      setQueryParamsFilter({
+        ...queryParamsFilter,
+        capacity: unselectedCapacity,
+      });
+    }
   };
 
   const rangeInputHandler = (e: FormEvent<HTMLInputElement>) => {
@@ -58,7 +78,7 @@ export default function DesktopFilterBar({
                   onChange={typeCheckBoxHandler}
                   value={i}
                   name="type"
-                  checked={queryParamsFilter.type.includes(i)}
+                  //   checked={queryParamsFilter.type.includes(i)}
                 />
                 <label className="text-sm lg:text-base font-medium text-secondinary-400">
                   {i}
