@@ -49,3 +49,9 @@ export interface FilterBarProps {
   queryParamsFilter: QueryParamsFilter;
   setQueryParamsFilter: React.Dispatch<React.SetStateAction<QueryParamsFilter>>;
 }
+
+export interface FilterType {
+  type: string | string[] | undefined;
+  capacity: string | string[] | undefined;
+  price: { $gte: string | string[] };
+}

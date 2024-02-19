@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 import { GetServerSideProps } from "next";
+import { useRouter } from "next/router";
 
 // components
 import CarCard from "@/components/modules/CarCard/CarCard";
@@ -9,22 +10,31 @@ import FilterBar from "@/components/templates/Vehicles/FilterBar/FilterBar";
 // models
 import carsModel from "@/models/car";
 
-// skeleton
-import CarSkeleton from "@/skeleton/CarSkeleton";
-
 // types
-import { CarInterface, QueryParamsFilter } from "@/types";
+import { CarInterface, FilterType, QueryParamsFilter } from "@/types";
 
 // utils
 import connectToDB from "@/utils/db";
 
 const Vehicles = ({ cars }: { cars: CarInterface[] }) => {
+  // ** router
+  const router = useRouter();
+
+  // ** states
   const [queryParamsFilter, setQueryParamsFilter] = useState<QueryParamsFilter>(
     { type: [], capacity: [], price: 50 }
   );
 
+  // ** useEffect
   useEffect(() => {
-    console.log(queryParamsFilter);
+    router.replace({
+      query: {
+        ...router.query,
+        type: queryParamsFilter.type,
+        capacity: queryParamsFilter.capacity,
+        price: queryParamsFilter.price,
+      },
+    });
   }, [queryParamsFilter]);
 
   return (
@@ -39,9 +49,10 @@ const Vehicles = ({ cars }: { cars: CarInterface[] }) => {
           {cars.length ? (
             cars.map((car: CarInterface) => <CarCard car={car} key={car._id} />)
           ) : (
-            <CarSkeleton cards={8} />
+            <div className="w-full flex items-center justify-center mt-10 p-4 rounded-md shadow-sm bg-white mx-auto col-span-4">
+              <h1 className="text-xl font-semibold">Nothing Found!</h1>
+            </div>
           )}
-          z
         </div>
       </div>
     </div>
@@ -50,10 +61,25 @@ const Vehicles = ({ cars }: { cars: CarInterface[] }) => {
 
 export default Vehicles;
 
-export const getServerSideProps: GetServerSideProps = async (context) => {
+export const getServerSideProps: GetServerSideProps = async ({ query }) => {
   try {
     connectToDB();
-    const cars = await carsModel.find({}, "-createdAt -updatedAt -__v ");
+
+    const filter = {} as FilterType;
+
+    if (query.type) {
+      filter.type = query.type;
+    }
+
+    if (query.capacity) {
+      filter.capacity = query.capacity;
+    }
+
+    if (query.price) {
+      filter.price = { $gte: query.price };
+    }
+
+    const cars = await carsModel.find(filter);
 
     return {
       props: {
