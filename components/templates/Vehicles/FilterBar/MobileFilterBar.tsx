@@ -14,13 +14,16 @@ import { FilterBarProps } from "@/types";
 import Close from "@/public/svg/close.svg";
 import Arrow from "@/public/svg/arrow-down.svg";
 
+// context
+import { useIsShow } from "@/context/ShowFilterContextProvider";
+
 const MobileFilterBar = ({
   queryParamsFilter,
   setQueryParamsFilter,
 }: FilterBarProps) => {
   // ** state
   const [rangeValue, setRangeValue] = useState<number>(50);
-  const [isShow, setIsShow] = useState<boolean>(true);
+  const {isShow, setIsShow} = useIsShow()
   const [isOpen, setIsOpen] = useState<{ first: boolean; second: boolean }>({
     first: true,
     second: false,

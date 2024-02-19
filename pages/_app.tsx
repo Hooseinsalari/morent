@@ -8,6 +8,7 @@ import "react-widgets/styles.css";
 // components
 import Navbar from "@/components/modules/Navbar/Navbar";
 import Footer from "@/components/modules/Footer/Footer";
+import ShowFilterContextProvider from "@/context/ShowFilterContextProvider";
 
 const plus = Plus_Jakarta_Sans({
   subsets: ["latin"],
@@ -17,10 +18,12 @@ const plus = Plus_Jakarta_Sans({
 
 export default function App({ Component, pageProps }: AppProps) {
   return (
-    <div className={plus.className}>
-      <Navbar />
-      <Component {...pageProps} />
-      <Footer />
-    </div>
+    <ShowFilterContextProvider>
+      <div className={plus.className}>
+        <Navbar />
+        <Component {...pageProps} />
+        <Footer />
+      </div>
+    </ShowFilterContextProvider>
   );
 }

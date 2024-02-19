@@ -6,10 +6,17 @@ import Image from "next/image";
 import FilterIcon from "@/public/svg/filter-icon.svg";
 import SearchIcon from "@/public/svg/search-icon.svg";
 import CleanSearch from "@/public/svg/close.svg";
+import { useIsShow } from "@/context/ShowFilterContextProvider";
 
 const NavbarSearch = () => {
+  // ** state
   const [search, setSearch] = useState<string>("");
+
+  // ** router
   const { pathname } = useRouter();
+
+  // ** context
+  const {isShow, setIsShow} = useIsShow()
 
   return (
     <div className="flex items-center md:mr-auto md:w-1/2 gap-4 md:border md:border-[#C3D4E966] md:rounded-3xl">
@@ -34,11 +41,10 @@ const NavbarSearch = () => {
       </div>
       {pathname === "/vehicles" && (
         <button
-          //   onClick={() => setIsShow((prevState) => !prevState)}
+            onClick={() => setIsShow((prevState) => !prevState)}
           className="border border-[#C3D4E966] rounded-[10px] p-3 md:hidden"
         >
           <Image
-            className="w-8 h-6"
             width={32}
             height={24}
             src={FilterIcon}
