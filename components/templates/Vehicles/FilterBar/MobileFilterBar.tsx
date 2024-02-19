@@ -23,11 +23,13 @@ const MobileFilterBar = ({
 }: FilterBarProps) => {
   // ** state
   const [rangeValue, setRangeValue] = useState<number>(50);
-  const {isShow, setIsShow} = useIsShow()
   const [isOpen, setIsOpen] = useState<{ first: boolean; second: boolean }>({
     first: true,
     second: false,
   });
+
+  // ** context
+  const { isShow, setIsShow } = useIsShow();
 
   // ** handlers
   const typeCheckBoxHandler = (e: FormEvent<HTMLInputElement>) => {
@@ -70,7 +72,7 @@ const MobileFilterBar = ({
     setRangeValue(+e.currentTarget.value);
   };
 
-  const mouseUpHandler = () => {
+  const touchEndHandler = () => {
     setQueryParamsFilter({
       ...queryParamsFilter,
       price: rangeValue,
@@ -185,15 +187,15 @@ const MobileFilterBar = ({
           <input
             className="w-full bg-secondinary-300 outline-none"
             name="price"
-            value={rangeValue}
+            value={queryParamsFilter.price}
             min={20}
             max={500}
             onChange={rangeInputHandler}
             type="range"
-            onMouseUp={mouseUpHandler}
+            onTouchEnd={touchEndHandler}
           />
           <h3 className="font-medium text-secondinary-400">
-            Max ${rangeValue.toFixed(2)}
+            Max ${queryParamsFilter.price.toFixed(2)}
           </h3>
         </div>
       </div>
