@@ -1,8 +1,10 @@
+import React, { FormEvent, useState } from "react";
+
+// constant
 import { carCapasity, carTypes } from "@/constant";
-import { FilterBarProps, QueryParamsFilter } from "@/types";
-import { useSearchParams } from "next/navigation";
-import { useRouter } from "next/router";
-import React, { FormEvent, MouseEvent, useState } from "react";
+
+// types
+import { FilterBarProps } from "@/types";
 
 export default function DesktopFilterBar({
   queryParamsFilter,
@@ -78,7 +80,7 @@ export default function DesktopFilterBar({
                   onChange={typeCheckBoxHandler}
                   value={i}
                   name="type"
-                  //   checked={queryParamsFilter.type.includes(i)}
+                  checked={queryParamsFilter.type.includes(i)}
                 />
                 <label className="text-sm lg:text-base font-medium text-secondinary-400">
                   {i}
