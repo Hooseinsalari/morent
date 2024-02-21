@@ -120,7 +120,7 @@ export default function DesktopFilterBar({
           </h3>
           <input
             name="price"
-            value={queryParamsFilter.price}
+            value={rangeValue}
             min={20}
             max={500}
             onChange={rangeInputHandler}
@@ -129,7 +129,7 @@ export default function DesktopFilterBar({
             className="w-full bg-secondinary-300 outline-none"
           />
           <h3 className="font-medium text-secondinary-400 text-sm lg:text-base">
-            Max ${queryParamsFilter.price.toFixed(2)}
+            Max ${rangeValue.toFixed(2)}
           </h3>
         </div>
       </div>
