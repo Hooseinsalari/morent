@@ -187,7 +187,7 @@ const MobileFilterBar = ({
           <input
             className="w-full bg-secondinary-300 outline-none"
             name="price"
-            value={queryParamsFilter.price}
+            value={rangeValue}
             min={20}
             max={500}
             onChange={rangeInputHandler}
@@ -195,7 +195,7 @@ const MobileFilterBar = ({
             onTouchEnd={touchEndHandler}
           />
           <h3 className="font-medium text-secondinary-400">
-            Max ${queryParamsFilter.price.toFixed(2)}
+            Max ${rangeValue.toFixed(2)}
           </h3>
         </div>
       </div>
