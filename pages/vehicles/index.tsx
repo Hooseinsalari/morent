@@ -27,14 +27,20 @@ const Vehicles = ({ cars }: { cars: CarInterface[] }) => {
 
   // ** useEffect
   useEffect(() => {
-    router.replace({
-      query: {
-        ...router.query,
-        type: queryParamsFilter.type,
-        capacity: queryParamsFilter.capacity,
-        price: queryParamsFilter.price,
+    router.replace(
+      {
+        pathname: "/vehicles",
+        query: {
+          type: queryParamsFilter.type,
+          capacity: queryParamsFilter.capacity,
+          price: queryParamsFilter.price,
+        },
       },
-    });
+      undefined,
+      { scroll: false }
+    );
+
+    window.scroll(0, 0);
   }, [queryParamsFilter]);
 
   return (
