@@ -1,5 +1,5 @@
 import mongoose from "mongoose";
-import { carSchema } from "./car";
+import carsModel, { carSchema } from "./car";
 
 const userSchema = new mongoose.Schema(
   {
@@ -16,7 +16,11 @@ const userSchema = new mongoose.Schema(
       type: String,
       required: true,
     },
-    rentedCars: [carSchema],
+    rentedCars: [{
+        required: false,
+        type: mongoose.Schema.ObjectId,
+        ref: 'carsModel'
+    }],
   },
   {
     timestamps: true,
