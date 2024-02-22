@@ -1,6 +1,6 @@
 const mongoose = require("mongoose");
 
-const schema = new mongoose.Schema(
+export const carSchema = new mongoose.Schema(
   {
     name: {
       type: String,
@@ -36,6 +36,6 @@ const schema = new mongoose.Schema(
   }
 );
 
-const carsModel = mongoose.models.Car || mongoose.model("Car", schema);
+const carsModel = mongoose.models.Car || mongoose.model("Car", carSchema);
 
 export default carsModel;
