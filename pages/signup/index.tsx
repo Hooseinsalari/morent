@@ -44,7 +44,7 @@ const SignUp = () => {
   };
 
   // ** submit
-  const handleRegistration = (data: FormData) => {
+  const handleRegistration = async (data: FormData) => {
     console.log("Data ==> ", data);
   };
 

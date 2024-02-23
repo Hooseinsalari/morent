@@ -10,6 +10,9 @@
   },
   "dependencies": {
     "axios": "^1.6.7",
+    "bcrypt": "^5.1.1",
+    "cookie": "^0.6.0",
+    "jsonwebtoken": "^9.0.2",
     "mongoose": "^8.1.2",
     "next": "14.1.0",
     "react": "^18",
@@ -21,6 +24,7 @@
   },
   "devDependencies": {
     "@tailwindcss/forms": "^0.5.7",
+    "@types/cookie": "^0.6.0",
     "@types/node": "^20",
     "@types/react": "^18",
     "@types/react-dom": "^18",
