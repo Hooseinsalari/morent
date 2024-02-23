@@ -16,11 +16,17 @@ const userSchema = new mongoose.Schema(
       type: String,
       required: true,
     },
-    rentedCars: [{
+    role: {
+      type: String,
+      required: true,
+    },
+    rentedCars: [
+      {
         required: false,
         type: mongoose.Schema.ObjectId,
-        ref: 'carsModel'
-    }],
+        ref: "carsModel",
+      },
+    ],
   },
   {
     timestamps: true,
