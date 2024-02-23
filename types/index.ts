@@ -55,3 +55,10 @@ export interface FilterType {
   capacity: string | string[] | undefined;
   price: { $gte: string | string[] };
 }
+
+export interface FormData {
+  username: string;
+  email: string;
+  password: string;
+  confirmPassword: string;
+}
