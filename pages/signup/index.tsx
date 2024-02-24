@@ -63,22 +63,26 @@ const SignUp = () => {
 
   // ** submit
   const handleRegistration = async (data: FormData) => {
-    setIsLoading(true);
-    await axios
-      .post("http://localhost:3000/api/auth/signUp", data)
-      .then((res) => {
-        if (res.status === 201) {
-          toast.success(res.data.message);
-          router.replace("/");
-          setIsLoading(false);
-        }
-      })
-      .catch(({ response }) => {
-        if (response.status === 422) {
-          toast.error(response.data.message);
-          setIsLoading(false);
-        }
-      });
+    try {
+      setIsLoading(true);
+      const response = await axios.post(
+        "http://localhost:3000/api/auth/signUp",
+        data
+      );
+
+      if (response.status === 201) {
+        toast.success(response.data.message);
+        router.replace("/");
+      }
+    } catch (error: any) {
+      if (error.response && error.response.status === 422) {
+        toast.error(error.response.data.message);
+      } else {
+        toast.error("An error occurred. Please try again later.");
+      }
+    } finally {
+      setIsLoading(false);
+    }
   };
 
   return (
