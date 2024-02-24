@@ -64,6 +64,6 @@ export interface SignUpFormData {
 }
 
 export interface SignInFormData {
-  register: string;
+  identifier: string;
   password: string;
 }
