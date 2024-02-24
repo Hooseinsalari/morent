@@ -56,9 +56,14 @@ export interface FilterType {
   price: { $gte: string | string[] };
 }
 
-export interface FormData {
+export interface SignUpFormData {
   username: string;
   email: string;
   password: string;
   confirmPassword: string;
+}
+
+export interface SignInFormData {
+  register: string;
+  password: string;
 }

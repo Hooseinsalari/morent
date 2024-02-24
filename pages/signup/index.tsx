@@ -7,7 +7,7 @@ import { useRouter } from "next/router";
 import LoadingSpinner from "@/components/modules/LoadingSpinner/LoadingSpinner";
 
 // types
-import { FormData } from "@/types";
+import { SignUpFormData } from "@/types";
 
 // form
 import { useForm } from "react-hook-form";
@@ -28,7 +28,7 @@ const SignUp = () => {
     handleSubmit,
     formState: { errors },
     watch,
-  } = useForm<FormData>();
+  } = useForm<SignUpFormData>();
 
   const password = watch("password");
 
@@ -62,7 +62,7 @@ const SignUp = () => {
   };
 
   // ** submit
-  const handleRegistration = async (data: FormData) => {
+  const handleRegistration = async (data: SignUpFormData) => {
     try {
       setIsLoading(true);
       const response = await axios.post(
