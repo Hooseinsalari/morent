@@ -15,4 +15,10 @@ function generateToken(data: { email: string }) {
   return token;
 }
 
-export { hashPassword, generateToken };
+async function verifyPassword(pass: string, hashedPass: string) {
+  const isSame = await bcrypt.compare(pass, hashedPass);
+
+  return isSame;
+}
+
+export { hashPassword, generateToken, verifyPassword };
