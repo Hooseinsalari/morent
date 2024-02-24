@@ -1,9 +1,27 @@
-import { FormData } from "@/types";
+import React, { useState } from "react";
 import Link from "next/link";
-import React from "react";
+import axios from "axios";
+import { useRouter } from "next/router";
+
+// loading
+import LoadingSpinner from "@/components/modules/LoadingSpinner/LoadingSpinner";
+
+// types
+import { FormData } from "@/types";
+
+// form
 import { useForm } from "react-hook-form";
 
+// toast
+import toast from "react-hot-toast";
+
 const SignUp = () => {
+  // ** states
+  const [isLoading, setIsLoading] = useState<boolean>(false);
+
+  // ** router
+  const router = useRouter();
+
   // ** useForm
   const {
     register,
@@ -45,14 +63,29 @@ const SignUp = () => {
 
   // ** submit
   const handleRegistration = async (data: FormData) => {
-    console.log("Data ==> ", data);
+    setIsLoading(true);
+    await axios
+      .post("http://localhost:3000/api/auth/signUp", data)
+      .then((res) => {
+        if (res.status === 201) {
+          toast.success(res.data.message);
+          router.replace("/");
+          setIsLoading(false);
+        }
+      })
+      .catch(({ response }) => {
+        if (response.status === 422) {
+          toast.error(response.data.message);
+          setIsLoading(false);
+        }
+      });
   };
 
   return (
     <div className="flex my-32 justify-center min-h-screen">
       <form
         onSubmit={handleSubmit(handleRegistration)}
-        className="bg-white rounded-md h-fit p-4 w-4/5 mx-auto md:w-1/2 md:py-6 md:px-8 shadow-md"
+        className="bg-white rounded-md h-fit p-4 w-4/5 mx-auto md:w-1/2 lg:w-2/5 md:py-6 md:px-8 shadow-md"
       >
         <h1 className="text-secondinary-500 text-3xl text-center font-semibold mb-12">
           Sign Up
@@ -134,11 +167,12 @@ const SignUp = () => {
           <button
             type="submit"
             className="bg-primary-500 text-base text-white px-4 py-3 rounded-[4px] w-full font-semibold disabled:opacity-70 disabled:cursor-not-allowed"
+            disabled={isLoading ? true : false}
           >
-            Submit
+            {isLoading ? <LoadingSpinner /> : "Submit"}
           </button>
           <Link
-            className="text-sm font-medium text-secondinary-300 mt-2"
+            className="text-sm font-semibold text-secondinary-300 mt-3"
             href={`/login`}
           >
             already have account?

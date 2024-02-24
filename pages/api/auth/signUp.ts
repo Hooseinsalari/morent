@@ -46,7 +46,9 @@ export default async function handler(
     });
 
     if (isUserExist) {
-      return res.status(422).json({ message: "User already exist!" });
+      return res
+        .status(422)
+        .json({ message: "This name or email is already taken." });
     }
 
     const users = await usersModel.find({});
@@ -68,7 +70,7 @@ export default async function handler(
         })
       )
       .status(201)
-      .json({ message: "User create successfully!" });
+      .json({ message: "Thank you for signing up for Morent" });
   } catch (error) {
     return res
       .status(500)
