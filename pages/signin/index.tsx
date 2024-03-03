@@ -1,9 +1,27 @@
-import { SignInFormData } from "@/types";
+import React, { useState } from "react";
+import axios from "axios";
 import Link from "next/link";
-import React from "react";
+import { useRouter } from "next/router";
+
+// components
+import LoadingSpinner from "@/components/modules/LoadingSpinner/LoadingSpinner";
+
+// types
+import { SignInFormData } from "@/types";
+
+// useForm
 import { useForm } from "react-hook-form";
 
+// toast
+import toast from "react-hot-toast";
+
 const SignIn = () => {
+  // ** states
+  const [isLoading, setIsLoading] = useState<boolean>(false);
+
+  // ** router
+  const router = useRouter();
+
   // ** useForm
   const {
     register,
@@ -30,8 +48,27 @@ const SignIn = () => {
   };
 
   // ** submit
-  const handleRegistration = (data: SignInFormData) => {
-    console.log(data);
+  const handleRegistration = async (data: SignInFormData) => {
+    try {
+      setIsLoading(true);
+      const response = await axios.post(
+        "http://localhost:3000/api/auth/signIn",
+        data
+      );
+
+      if (response.status === 201) {
+        toast.success(response.data.message);
+        router.replace("/");
+      }
+    } catch (error: any) {
+      if (error.response && error.response.status === 401) {
+        toast.error(error.response.data.message);
+      } else {
+        toast.error("An error occurred. Please try again later.");
+      }
+    } finally {
+      setIsLoading(false);
+    }
   };
 
   return (
@@ -79,8 +116,9 @@ const SignIn = () => {
           <button
             type="submit"
             className="bg-primary-500 text-base text-white px-4 py-3 rounded-[4px] w-full font-semibold disabled:opacity-70 disabled:cursor-not-allowed"
+            disabled={isLoading && true}
           >
-            Submit
+            {isLoading ? <LoadingSpinner /> : "Submit"}
           </button>
           <Link
             className="text-sm font-medium text-secondinary-300 mt-2"
