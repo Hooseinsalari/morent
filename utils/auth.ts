@@ -21,4 +21,13 @@ async function verifyPassword(pass: string, hashedPass: string) {
   return isSame;
 }
 
-export { hashPassword, generateToken, verifyPassword };
+function verifyToken(token: string) {
+  try {
+    const validationResult = jwt.verify(token, process.env.privateKey);
+    return validationResult;
+  } catch (error) {
+    console.log("Verify token has faild");
+  }
+}
+
+export { hashPassword, generateToken, verifyPassword, verifyToken };
