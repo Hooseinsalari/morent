@@ -15,9 +15,15 @@ import { useForm } from "react-hook-form";
 // toast
 import toast from "react-hot-toast";
 
+// context
+import { useUser } from "@/context/UserContextProvider";
+
 const SignUp = () => {
   // ** states
   const [isLoading, setIsLoading] = useState<boolean>(false);
+
+  // ** context
+  const { setUser } = useUser();
 
   // ** router
   const router = useRouter();
@@ -72,7 +78,16 @@ const SignUp = () => {
 
       if (response.status === 201) {
         toast.success(response.data.message);
+
         router.replace("/");
+
+        const { username, email, rentedCars } = response.data.data;
+
+        setUser({
+          username,
+          email,
+          rentedCars,
+        });
       }
     } catch (error: any) {
       if (error.response && error.response.status === 422) {
