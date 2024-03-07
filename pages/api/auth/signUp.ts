@@ -60,6 +60,11 @@ export default async function handler(
       role: users.length < 1 ? "ADMIN" : "USER",
     });
 
+    const userData = await usersModel.findOne(
+      { email },
+      "username email rentedCars"
+    );
+
     return res
       .setHeader(
         "Set-Cookie",
@@ -70,7 +75,7 @@ export default async function handler(
         })
       )
       .status(201)
-      .json({ message: "Thank you for signing up for Morent" });
+      .json({ message: "Thank you for signing up for Morent", data: userData });
   } catch (error) {
     return res
       .status(500)

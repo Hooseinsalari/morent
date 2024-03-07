@@ -61,7 +61,7 @@ export default async function handler(
         })
       )
       .status(201)
-      .json({ message: `Welcome back, ${user.username}!` });
+      .json({ message: `Welcome back, ${user.username}!`, data: user });
   } catch (error) {
     return res.status(500).json({ message: "Unknown Internal Server Error" });
   }
