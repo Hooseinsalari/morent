@@ -8,6 +8,9 @@ import "react-widgets/styles.css";
 // components
 import Navbar from "@/components/modules/Navbar/Navbar";
 import Footer from "@/components/modules/Footer/Footer";
+
+// context
+import UserContextProvider from "@/context/UserContextProvider";
 import ShowFilterContextProvider from "@/context/ShowFilterContextProvider";
 
 // toast
@@ -21,19 +24,21 @@ const plus = Plus_Jakarta_Sans({
 
 export default function App({ Component, pageProps }: AppProps) {
   return (
-    <ShowFilterContextProvider>
-      <div className={plus.className}>
-        <Navbar />
-        <Component {...pageProps} />
-        <Footer />
-      </div>
-      <Toaster
-        toastOptions={{
-          style: {
-            fontWeight: "600",
-          },
-        }}
-      />
-    </ShowFilterContextProvider>
+    <UserContextProvider>
+      <ShowFilterContextProvider>
+        <div className={plus.className}>
+          <Navbar />
+          <Component {...pageProps} />
+          <Footer />
+        </div>
+        <Toaster
+          toastOptions={{
+            style: {
+              fontWeight: "600",
+            },
+          }}
+        />
+      </ShowFilterContextProvider>
+    </UserContextProvider>
   );
 }
