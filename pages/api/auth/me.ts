@@ -30,7 +30,10 @@ export default async function handler(
       return res.status(401).json({ message: "You are not logged in!" });
     }
 
-    const user = await usersModel.findOne({ email: tokenPayload.email });
+    const user = await usersModel.findOne(
+      { email: tokenPayload.email },
+      "username email rentedCars"
+    );
 
     return res.status(200).json({ data: user });
   } catch (error) {
