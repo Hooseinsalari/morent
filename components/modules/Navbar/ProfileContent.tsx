@@ -19,6 +19,12 @@ import { truncateString } from "@/helper/functions";
 // types
 import { UserData } from "@/types";
 
+// axios
+import axios from "axios";
+
+// toast
+import toast from "react-hot-toast";
+
 const ProfileContent = () => {
   // ** state
   const [isOpen, setIsOpen] = useState<boolean>(false);
@@ -32,24 +38,19 @@ const ProfileContent = () => {
   // ** hooks
   useOutsideClick(profileRef, "profile", () => setIsOpen(false));
 
-  // ** handler
-  const logoutHandler = () => {
-    // ...
-  };
-
   return (
     <div className="relative z-50">
       <ProfileIcon setIsOpen={setIsOpen} />
       <div
         className={`${
           isOpen
-            ? "transition-opacity duration-300 opacity-100"
-            : "transition-opacity duration-300 opacity-0"
+            ? "transition-opacity duration-150 opacity-100 visible"
+            : "transition-opacity duration-150 opacity-0 invisible"
         } border border-[#C3D4E966] absolute top-12 right-1 rounded-lg min-w-max overflow-hidden bg-white shadow-lg`}
         style={{ transitionProperty: "opacity" }}
         ref={profileRef}
       >
-        <ProfileDetails user={user} logoutHandler={logoutHandler} />
+        <ProfileDetails user={user} setUser={setUser} />
       </div>
     </div>
   );
@@ -81,11 +82,22 @@ function ProfileIcon({
 
 function ProfileDetails({
   user,
-  logoutHandler,
+  setUser,
 }: {
   user: UserData | null;
-  logoutHandler: () => void;
+  setUser: (user: UserData | null) => void;
 }) {
+  // ** handler
+  const logoutHandler = async () => {
+    const response = await axios.get("http://localhost:3000/api/auth/signOut");
+    if (response.status === 200) {
+      toast.success(response.data.message);
+      setUser(null);
+    } else {
+      toast.error("An unexpected error occurred. Please try again later.");
+    }
+  };
+
   return (
     <>
       <div className="flex items-center gap-2 py-2 px-4">
