@@ -16,6 +16,7 @@ import axios from "axios";
 
 // context
 import { useUser } from "@/context/UserContextProvider";
+import Profile from "./Profile";
 
 const Navbar = () => {
   // ** states
@@ -60,39 +61,12 @@ const Navbar = () => {
           MORENT
         </Link>
         <div className="md:hidden">
-          {user && !isLoading ? (
-            <div className="hover:shadow-md cursor-pointer duration-200 border border-[#C3D4E966] rounded-full p-2">
-              <Image src={UserIcon} width={24} height={24} alt="profile icon" />
-            </div>
-          ) : (
-            <Link href="/signin">
-              <div className="hover:shadow-md cursor-pointer duration-200 border border-[#C3D4E966] rounded-full p-2">
-                <Image
-                  src={LoginIcon}
-                  width={24}
-                  height={24}
-                  alt="login icon"
-                />
-              </div>
-            </Link>
-          )}
-          {/* <ProfileContainer /> */}
+          <Profile />
         </div>
       </div>
       <NavbarSearch />
       <div className="hidden md:flex items-center justify-center gap-x-4 flex-row-reverse">
-        {/* <ProfileContainer /> */}
-        {user && !isLoading ? (
-          <div className="hover:shadow-md cursor-pointer duration-200 border border-[#C3D4E966] rounded-full p-2">
-            <Image src={UserIcon} width={24} height={24} alt="login icon" />
-          </div>
-        ) : (
-          <Link href="/signin">
-            <div className="hover:shadow-md cursor-pointer duration-200 border border-[#C3D4E966] rounded-full p-2">
-              <Image src={LoginIcon} width={24} height={24} alt="login icon" />
-            </div>
-          </Link>
-        )}
+        <Profile />
         <div className="hover:shadow-md cursor-pointer duration-200 border border-[#C3D4E966] rounded-full p-2">
           <Image src={SettingIcon} width={24} height={24} alt="setting icon" />
         </div>

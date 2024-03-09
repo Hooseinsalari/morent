@@ -18,4 +18,11 @@ function formatTime(selectedTime: any) {
   return `${time}`;
 }
 
-export { formatDate, formatTime };
+function truncateString(str: string | undefined, len: number) {
+  if (str && str?.length > len) {
+    return str?.substring(0, len) + "..."
+  }
+  return str;
+}
+
+export { formatDate, formatTime, truncateString };
