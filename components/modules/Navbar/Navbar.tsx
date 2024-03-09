@@ -4,19 +4,17 @@ import Link from "next/link";
 
 // components
 import NavbarSearch from "./NavbarSearch";
+import Profile from "./Profile";
 
 // icons
-import LoginIcon from "@/public/svg/login.svg";
 import SettingIcon from "@/public/svg/setting-icon.svg";
 import NotificationIcon from "@/public/svg/notification.svg";
-import UserIcon from "@/public/svg/user-icon.svg";
 
 // axios
 import axios from "axios";
 
 // context
 import { useUser } from "@/context/UserContextProvider";
-import Profile from "./Profile";
 
 const Navbar = () => {
   // ** states

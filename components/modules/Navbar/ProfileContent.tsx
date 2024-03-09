@@ -1,12 +1,22 @@
-import { useUser } from "@/context/UserContextProvider";
-import useOutsideClick from "@/hooks/useOutsideClick";
 import React, { useRef, useState } from "react";
+import Link from "next/link";
+import Image from "next/image";
+
+// context
+import { useUser } from "@/context/UserContextProvider";
+
+// hook
+import useOutsideClick from "@/hooks/useOutsideClick";
+
+// icon
 import UserIcon from "@/public/svg/user-icon.svg";
 import DashboardIcon from "@/public/svg/dashboard.svg";
 import LogoutIcon from "@/public/svg/logout.svg";
-import Image from "next/image";
+
+// function
 import { truncateString } from "@/helper/functions";
-import Link from "next/link";
+
+// types
 import { UserData } from "@/types";
 
 const ProfileContent = () => {
