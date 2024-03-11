@@ -1,10 +1,14 @@
-import { CarInterface } from "@/types";
+import Image from "next/image";
 import Link from "next/link";
 import React from "react";
+
+// types
+import { CarInterface } from "@/types";
+
+// icons
 import GasStation from "@/public/svg/gas-station.svg";
 import Gear from "@/public/svg/gear.svg";
 import Capacity from "@/public/svg/capacity.svg";
-import Image from "next/image";
 
 const CarCard = ({ car }: { car: CarInterface }) => {
   return (
@@ -21,9 +25,10 @@ const CarCard = ({ car }: { car: CarInterface }) => {
         className="flex items-center justify-between sm:flex-col sm:mt-10"
       >
         <div className="w-2/3 sm:w-full mr-2 h-32 flex items-center justify-center">
-          <img
+          <Image
+            width={800}
+            height={1000}
             src={car.image}
-            referrerPolicy="no-referrer"
             alt="car"
             className="w-full h-auto object-contain"
           />
