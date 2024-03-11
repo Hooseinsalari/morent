@@ -15,6 +15,6 @@ export default async function handler(
   const cars = await carsModel.find({});
 
   if (cars) {
-    return res.status(200).json({ message: "Request successful." });
+    return res.status(200).json({ message: "Request successful.", data: cars });
   }
 }
