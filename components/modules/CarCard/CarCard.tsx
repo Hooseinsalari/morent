@@ -17,7 +17,7 @@ const CarCard = ({ car }: { car: CarInterface }) => {
       </div>
 
       <Link
-        href={`/`}
+        href={`/vehicles/${car._id}`}
         className="flex items-center justify-between sm:flex-col sm:mt-10"
       >
         <div className="w-2/3 sm:w-full mr-2 h-32 flex items-center justify-center">
@@ -28,7 +28,7 @@ const CarCard = ({ car }: { car: CarInterface }) => {
             className="w-full h-auto object-contain"
           />
         </div>
-        
+
         <div className="sm:flex sm:mt-12 sm:w-full justify-between md:items-center">
           <div className="flex items-center mb-4">
             <Image
