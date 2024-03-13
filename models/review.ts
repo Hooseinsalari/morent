@@ -7,12 +7,12 @@ export const reviewSchema = new mongoose.Schema(
   {
     user: {
       type: mongoose.Schema.Types.ObjectId,
-      ref: "usersModel",
+      ref: usersModel,
       required: true,
     },
     car: {
       type: mongoose.Schema.Types.ObjectId,
-      ref: "carsModel",
+      ref: carsModel,
       required: true,
     },
     comment: {
