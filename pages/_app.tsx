@@ -4,6 +4,7 @@ import { Plus_Jakarta_Sans } from "next/font/google";
 // styles
 import "@/styles/globals.css";
 import "react-widgets/styles.css";
+import "yet-another-react-lightbox/styles.css";
 
 // components
 import Navbar from "@/components/modules/Navbar/Navbar";

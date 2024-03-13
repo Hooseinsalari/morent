@@ -1,10 +1,17 @@
+import CarInfo from "@/components/templates/CarDetails/CarInfo/CarInfo";
 import { CarInterface } from "@/types";
 import axios from "axios";
 import { GetStaticPaths, GetStaticProps } from "next";
 import React from "react";
 
-const index = () => {
-  return <div className="px-6 md:px-16 py-8">salam</div>;
+const index = ({ car }: { car: CarInterface }) => {
+  console.log(car);
+
+  return (
+    <div className="px-6 md:px-16 py-8">
+      <CarInfo car={car} />
+    </div>
+  );
 };
 
 export default index;
