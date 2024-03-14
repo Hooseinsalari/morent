@@ -10,6 +10,13 @@ import AddReview from "@/public/svg/add.svg";
 
 // component
 import Review from "./Review";
+import AddNewReview from "./AddNewReview";
+
+// context
+import { useUser } from "@/context/UserContextProvider";
+import toast from "react-hot-toast";
+import { useRouter } from "next/router";
+import axios from "axios";
 
 // interface
 interface Props {
@@ -19,9 +26,72 @@ interface Props {
 const CarReviews = ({ reviews }: Props) => {
   // ** state
   const [isShow, setIsShow] = useState<boolean>(false);
+  const [isModalOpen, setIsModalOpen] = useState<boolean>(false); // for modal
+  const [reviewValues, setReviewValues] = useState({
+    rating: 0,
+    comment: "",
+  });
+
+  // ** context
+  const { user } = useUser();
 
   // ** variable
   const reviewsToDisplay = isShow ? reviews : reviews.slice(0, 2);
+
+  // ** router
+  const { query } = useRouter();
+
+  // ** handler
+  // the modal for add new review
+  const openModalHandler = () => {
+    const isRented = user?.rentedCars.find((i) => i === query.id);
+
+    if (!user) {
+      toast.error("Please log in to continue.");
+      return;
+    } else if (!isRented) {
+      toast.error("You need to rent the car before you can leave a review.");
+      return;
+    } else {
+      setIsModalOpen(true);
+    }
+  };
+
+  //! submit new review
+  const submitNewReview = async (e: React.FormEvent) => {
+    e.preventDefault();
+
+    try {
+      if (reviewValues.comment && reviewValues.rating !== 0) {
+        const response = await axios.post(
+          "http://localhost:3000/api/reviews/postReview",
+          {
+            comment: reviewValues.comment,
+            rating: reviewValues.rating,
+            user: user?._id,
+            car: query.id,
+          }
+        );
+
+        if (response.status === 201) {
+          setIsModalOpen(false);
+          setReviewValues({
+            rating: 0,
+            comment: "",
+          });
+          toast.success(
+            "Thank you for your review! It has been successfully submitted."
+          );
+        }
+      } else {
+        toast.error(
+          "Please make sure to add a comment and select a rating before submitting your review."
+        );
+      }
+    } catch (error: any) {
+      toast.error(error.response.data.message);
+    }
+  };
 
   return (
     <div className="bg-white py-5 px-4 mt-8 rounded-lg shadow-sm duration-300">
@@ -35,7 +105,10 @@ const CarReviews = ({ reviews }: Props) => {
           </h2>
         </div>
 
-        <button className="flex items-center gap-x-2 text-secondinary-500 font-semibold p-2 pr-0 rounded-lg opacity-50 hover:opacity-80 duration-200">
+        <button
+          onClick={openModalHandler}
+          className="flex items-center gap-x-2 text-secondinary-500 font-semibold p-2 pr-0 rounded-lg opacity-50 hover:opacity-80 duration-200"
+        >
           Add review
           <Image width={24} height={24} src={AddReview} alt="add" />
         </button>
@@ -70,6 +143,14 @@ const CarReviews = ({ reviews }: Props) => {
           </button>
         ) : null}
       </div>
+
+      <AddNewReview
+        isModalOpen={isModalOpen}
+        setIsModalOpen={setIsModalOpen}
+        submitNewReview={submitNewReview}
+        setReviewValues={setReviewValues}
+        reviewValues={reviewValues}
+      />
     </div>
   );
 };

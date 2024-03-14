@@ -22,7 +22,7 @@ export default async function handler(
     const existingReview = await reviewsModel.findOne({ user, car });
 
     if (existingReview) {
-      return res.status(409).json({ message: "Review already exists" });
+      return res.status(409).json({ message: "You have already submitted a review for this car." });
     }
 
     const newReview = await reviewsModel.create({ user, car, comment, rating });

@@ -71,7 +71,8 @@ export interface SignInFormData {
 export interface UserData {
   username: string;
   email: string;
-  rentedCars: [CarInterface] | [];
+  rentedCars: string[] | [];
+  _id: string
 }
 
 export interface ReviewInterface {
@@ -81,7 +82,7 @@ export interface ReviewInterface {
     username: string;
     email: string;
     role: string;
-    rentedCars: [CarInterface] | [];
+    rentedCars: string[] | [];
   };
   car: string;
   comment: string;
