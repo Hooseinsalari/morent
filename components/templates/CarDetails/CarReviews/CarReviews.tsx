@@ -97,17 +97,17 @@ const CarReviews = ({ reviews }: Props) => {
     <div className="bg-white py-5 px-4 mt-8 rounded-lg shadow-sm duration-300">
       <div className="flex items-center justify-between mb-6">
         <div className="flex items-center">
-          <h1 className="text-xl text-secondinary-500 font-semibold mr-5">
+          <h1 className="text-base sm:text-xl text-secondinary-500 font-semibold mr-3 sm:mr-5">
             Reviews
           </h1>
-          <h2 className="bg-primary-500 px-5 w-11 h-7 flex items-center justify-center text-white font-bold rounded-md text-sm">
+          <h2 className="bg-primary-500 px-5 w-11 h-7 flex items-center justify-center text-white font-bold rounded-md text-xs sm:text-sm">
             {reviews?.length}
           </h2>
         </div>
 
         <button
           onClick={openModalHandler}
-          className="flex items-center gap-x-2 text-secondinary-500 font-semibold p-2 pr-0 rounded-lg opacity-50 hover:opacity-80 duration-200"
+          className="text-sm sm:text-base flex items-center gap-x-2 text-secondinary-500 font-semibold p-2 pr-0 rounded-lg opacity-50 hover:opacity-80 duration-200"
         >
           Add review
           <Image width={24} height={24} src={AddReview} alt="add" />
