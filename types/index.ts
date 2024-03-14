@@ -73,3 +73,18 @@ export interface UserData {
   email: string;
   rentedCars: [CarInterface] | [];
 }
+
+export interface ReviewInterface {
+  _id: string;
+  user: {
+    _id: string;
+    username: string;
+    email: string;
+    role: string;
+    rentedCars: [CarInterface] | [];
+  };
+  car: string;
+  comment: string;
+  rating: number;
+  createdAt: string;
+}

@@ -25,4 +25,15 @@ function truncateString(str: string | undefined, len: number) {
   return str;
 }
 
-export { formatDate, formatTime, truncateString };
+function extractDate(dateString: string) {
+  const dateObj = new Date(dateString);
+  const formattedDate = dateObj.toLocaleDateString("en-US", {
+    day: "numeric",
+    month: "short",
+    year: "numeric",
+  });
+
+  return formattedDate;
+}
+
+export { formatDate, formatTime, truncateString, extractDate };
