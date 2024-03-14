@@ -81,12 +81,13 @@ const SignUp = () => {
 
         router.replace("/");
 
-        const { username, email, rentedCars } = response.data.data;
+        const { username, email, rentedCars, _id } = response.data.data;
 
         setUser({
           username,
           email,
           rentedCars,
+          _id
         });
       }
     } catch (error: any) {
