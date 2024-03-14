@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import Image from "next/image";
 
 // type
@@ -9,8 +9,15 @@ import { extractDate } from "@/helper/functions";
 
 // svg
 import ProfileCircle from "@/public/svg/profile-circle.svg";
+import ReactStars from "react-stars";
 
 const Review = ({ review }: { review: ReviewInterface }) => {
+  const [isMounted, setIsMounted] = useState(false); // Need this for the react-tooltip
+
+  useEffect(() => {
+    setIsMounted(true);
+  }, []);
+
   return (
     <div className="mb-8">
       <div className="flex items-start justify-between">
@@ -33,6 +40,11 @@ const Review = ({ review }: { review: ReviewInterface }) => {
           <h2 className="text-secondinary-300 text-sm font-medium">
             {extractDate(review.createdAt)}
           </h2>
+          <div>
+            {isMounted && (
+              <ReactStars edit={false} size={18} value={review.rating} />
+            )}
+          </div>
         </div>
       </div>
       <p className="mt-4 pl-2 text-secondinary-300 text-sm leading-6">
