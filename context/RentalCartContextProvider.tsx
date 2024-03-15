@@ -1,5 +1,5 @@
 import { CarInterface } from "@/types";
-import React, { createContext, useContext, useReducer, useState } from "react";
+import React, { createContext, useContext, useEffect, useReducer, useState } from "react";
 
 type ActionType =
   | { type: "RENT"; payload: CarInterface }
@@ -68,6 +68,10 @@ const RentalCartContextProvider = ({
           clear: false,
         };
   });
+
+  useEffect(() => {
+    localStorage.setItem("state", JSON.stringify(state));
+  }, [state]);
 
   return (
     <rentalCartContext.Provider value={{ state, dispatch }}>
