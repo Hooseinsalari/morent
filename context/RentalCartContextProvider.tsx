@@ -7,13 +7,13 @@ type ActionType =
   | { type: "CLEAR"; payload: CarInterface };
 
 interface ReducerStateInterface {
-  selectedCar: CarInterface | {};
+  selectedCar: CarInterface | null;
   checkout: boolean;
   clear: boolean;
 }
 
 const initialState: ReducerStateInterface = {
-  selectedCar: {},
+  selectedCar: null,
   checkout: false,
   clear: false,
 };
@@ -40,12 +40,12 @@ const carReducer = (
       return {
         ...state,
         checkout: true,
-        selectedCar: {},
+        selectedCar: null,
       };
     case "CLEAR":
       return {
         checkout: false,
-        selectedCar: {},
+        selectedCar: null,
         clear: true,
       };
     default:
@@ -58,7 +58,16 @@ const RentalCartContextProvider = ({
 }: {
   children: React.ReactNode;
 }) => {
-  const [state, dispatch] = useReducer(carReducer, initialState);
+  const [state, dispatch] = useReducer(carReducer, initialState, () => {
+    const localState = localStorage.getItem("state");
+    return localState
+      ? JSON.parse(localState)
+      : {
+          selectedCar: null,
+          checkout: false,
+          clear: false,
+        };
+  });
 
   return (
     <rentalCartContext.Provider value={{ state, dispatch }}>
