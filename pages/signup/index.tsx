@@ -79,7 +79,9 @@ const SignUp = () => {
       if (response.status === 201) {
         toast.success(response.data.message);
 
-        router.replace("/");
+        let { query } = router;
+
+        router.replace(query.redirect ? `/${query.redirect}` : "/");
 
         const { username, email, rentedCars, _id } = response.data.data;
 
@@ -87,7 +89,7 @@ const SignUp = () => {
           username,
           email,
           rentedCars,
-          _id
+          _id,
         });
       }
     } catch (error: any) {
