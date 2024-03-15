@@ -122,3 +122,8 @@ export interface PickUpDropOffInterface {
   date: string;
   time: string;
 }
+
+export interface PaymentComponentsProps {
+  inputsValue: InputsValueInterface;
+  handleInputChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
+}
