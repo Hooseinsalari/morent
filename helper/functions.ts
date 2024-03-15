@@ -20,7 +20,7 @@ function formatTime(selectedTime: any) {
 
 function truncateString(str: string | undefined, len: number) {
   if (str && str?.length > len) {
-    return str?.substring(0, len) + "..."
+    return str?.substring(0, len) + "...";
   }
   return str;
 }
@@ -36,4 +36,17 @@ function extractDate(dateString: string) {
   return formattedDate;
 }
 
-export { formatDate, formatTime, truncateString, extractDate };
+function numberOfDays(start: string, end: string) {
+  const startDate = new Date(`${start}`);
+  const endDate = new Date(`${end}`);
+
+  let timeDifference = endDate.getTime() - startDate.getTime();
+
+  const numberOfDays = Math.ceil(
+    (timeDifference || 86400000) / (1000 * 60 * 60 * 24)
+  );
+
+  return numberOfDays.toFixed(2);
+}
+
+export { formatDate, formatTime, truncateString, extractDate, numberOfDays };

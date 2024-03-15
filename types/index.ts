@@ -103,3 +103,22 @@ export interface RentedCarInterface {
   price: number;
   image: string;
 }
+
+export interface InputsValueInterface {
+  name: string;
+  address: string;
+  phone: string;
+  town: string;
+  card: string;
+  holder: string;
+  date: string;
+  cvc: string;
+  pay: string;
+  check1: boolean;
+}
+
+export interface PickUpDropOffInterface {
+  location: string;
+  date: string;
+  time: string;
+}

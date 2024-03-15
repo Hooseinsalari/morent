@@ -52,8 +52,8 @@ const RentSummary = ({
           >
             <div className="w-1/2 bg-car-bg bg-cover bg-no-repeat rounded-xl py-3 sm:w-2/5">
               <Image
-                width={800}
-                height={800}
+                width={1200}
+                height={1000}
                 className="w-full h-auto"
                 src={state?.selectedCar?.image}
                 alt={state.selectedCar.name}

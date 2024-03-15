@@ -1,0 +1,30 @@
+import RentSummary from "@/components/templates/Payment/RentSummary";
+import { InputsValueInterface, PickUpDropOffInterface } from "@/types";
+import React, { useState } from "react";
+
+const index = () => {
+  // ** state
+  const [pickUpDetails, setPickUpDetails] = useState<PickUpDropOffInterface>({
+    location: "",
+    date: "",
+    time: "",
+  });
+  const [dropOffDetails, setDropOffDetails] = useState<PickUpDropOffInterface>({
+    location: "",
+    date: "",
+    time: "",
+  });
+
+  return (
+    <div className="px-6 md:px-10 flex flex-col lg:flex-row-reverse lg:gap-x-2">
+      <div className="flex-shrink lg:w-2/5 lg:px-6">
+        <RentSummary
+          startDate={pickUpDetails.date}
+          endDate={dropOffDetails.date}
+        />
+      </div>
+    </div>
+  );
+};
+
+export default index;
