@@ -1,5 +1,11 @@
 import { CarInterface } from "@/types";
-import React, { createContext, useContext, useEffect, useReducer, useState } from "react";
+import React, {
+  createContext,
+  useContext,
+  useEffect,
+  useReducer,
+  useState,
+} from "react";
 
 type ActionType =
   | { type: "RENT"; payload: CarInterface }
@@ -35,12 +41,14 @@ const carReducer = (
         ...state,
         selectedCar: action.payload,
         checkout: false,
+        clear: false,
       };
     case "CHECKOUT":
       return {
         ...state,
         checkout: true,
         selectedCar: null,
+        clear: false,
       };
     case "CLEAR":
       return {
@@ -59,19 +67,30 @@ const RentalCartContextProvider = ({
   children: React.ReactNode;
 }) => {
   const [state, dispatch] = useReducer(carReducer, initialState, () => {
-    const localState = localStorage.getItem("state");
-    return localState
-      ? JSON.parse(localState)
-      : {
-          selectedCar: null,
-          checkout: false,
-          clear: false,
-        };
+    if (typeof localStorage !== "undefined") {
+      const localState = localStorage.getItem("state");
+      return localState
+        ? JSON.parse(localState)
+        : {
+            cart: null,
+            totalPrice: 0,
+            checkout: false,
+            rentedCars: [],
+          };
+    }
   });
 
   useEffect(() => {
     localStorage.setItem("state", JSON.stringify(state));
   }, [state]);
+
+  //   useEffect(() => {
+  //     const savedState = localStorage.getItem("state");
+  //     if (savedState) {
+  //       const { selectedCar } = JSON.parse(savedState);
+  //       console.log("saved state is: ", selectedCar);
+  //     }
+  //   }, []);
 
   return (
     <rentalCartContext.Provider value={{ state, dispatch }}>
