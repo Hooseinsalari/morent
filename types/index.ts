@@ -72,7 +72,7 @@ export interface UserData {
   username: string;
   email: string;
   rentedCars: string[] | [];
-  _id: string
+  _id: string;
 }
 
 export interface ReviewInterface {
@@ -88,4 +88,18 @@ export interface ReviewInterface {
   comment: string;
   rating: number;
   createdAt: string;
+}
+
+export interface RentedCarInterface {
+  pickUpTime: string;
+  dropOffTime: string;
+  totalPrice: number;
+  _id: string;
+  name: string;
+  type: string;
+  gasoline: number;
+  steering: string;
+  capacity: number;
+  price: number;
+  image: string;
 }

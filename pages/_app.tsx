@@ -13,6 +13,7 @@ import Footer from "@/components/modules/Footer/Footer";
 // context
 import UserContextProvider from "@/context/UserContextProvider";
 import ShowFilterContextProvider from "@/context/ShowFilterContextProvider";
+import RentalCartContextProvider from "@/context/RentalCartContextProvider";
 
 // toast
 import { Toaster } from "react-hot-toast";
@@ -25,21 +26,23 @@ const plus = Plus_Jakarta_Sans({
 
 export default function App({ Component, pageProps }: AppProps) {
   return (
-    <UserContextProvider>
-      <ShowFilterContextProvider>
-        <div className={plus.className}>
-          <Navbar />
-          <Component {...pageProps} />
-          <Footer />
-        </div>
-        <Toaster
-          toastOptions={{
-            style: {
-              fontWeight: "600",
-            },
-          }}
-        />
-      </ShowFilterContextProvider>
-    </UserContextProvider>
+    <RentalCartContextProvider>
+      <UserContextProvider>
+        <ShowFilterContextProvider>
+          <div className={plus.className}>
+            <Navbar />
+            <Component {...pageProps} />
+            <Footer />
+          </div>
+          <Toaster
+            toastOptions={{
+              style: {
+                fontWeight: "600",
+              },
+            }}
+          />
+        </ShowFilterContextProvider>
+      </UserContextProvider>
+    </RentalCartContextProvider>
   );
 }
