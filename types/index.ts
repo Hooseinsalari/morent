@@ -2,7 +2,11 @@ import React from "react";
 
 export interface PickUpDropOffInterface {
   location: string;
-  date: string;
+  date: {
+    day: number | null;
+    month: number | null;
+    year: number | null;
+  };
   time: string;
 }
 
@@ -117,13 +121,18 @@ export interface InputsValueInterface {
   check1: boolean;
 }
 
-export interface PickUpDropOffInterface {
-  location: string;
-  date: string;
-  time: string;
-}
-
 export interface PaymentComponentsProps {
   inputsValue: InputsValueInterface;
   handleInputChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
+}
+
+export interface RentalInfoProps {
+  pickUpDetails: PickUpDropOffInterface;
+  setPickUpDetails: React.Dispatch<
+    React.SetStateAction<PickUpDropOffInterface>
+  >;
+  dropOffDetails: PickUpDropOffInterface;
+  setDropOffDetails: React.Dispatch<
+    React.SetStateAction<PickUpDropOffInterface>
+  >;
 }

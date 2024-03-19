@@ -16,8 +16,8 @@ const RentSummary = ({
   startDate,
   endDate,
 }: {
-  startDate: string;
-  endDate: string;
+  startDate: number;
+  endDate: number;
 }) => {
   // ** context
   const { state } = useRentalCart();

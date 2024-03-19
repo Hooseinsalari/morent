@@ -8,27 +8,27 @@ import Calender from "@/public/svg/calendar.svg";
 import Setting from "@/public/svg/setting2.svg";
 import Help from "@/public/svg/info-circle.svg";
 
-export const citiesInIran: string[] = [
-  "Tehran",
-  "Mashhad",
-  "Isfahan",
-  "Tabriz",
-  "Shiraz",
-  "Ahvaz",
-  "Qom",
-  "Kermanshah",
-  "Rasht",
-  "Kerman",
-  "Hamedan",
-  "Yazd",
-  "Arak",
-  "Esfahan",
-  "Zahedan",
-  "Qazvin",
-  "Khorramabad",
-  "Urmia",
-  "Bandar Abbas",
-  "Zanjan",
+export const citiesInIran: {id: number, name:string}[] = [
+  { id: 1, name: "Tehran" },
+  { id: 2, name: "Mashhad" },
+  { id: 3, name: "Isfahan" },
+  { id: 4, name: "Tabriz" },
+  { id: 5, name: "Shiraz" },
+  { id: 6, name: "Ahvaz" },
+  { id: 7, name: "Qom" },
+  { id: 8, name: "Kermanshah" },
+  { id: 9, name: "Rasht" },
+  { id: 10, name: "Kerman" },
+  { id: 11, name: "Hamedan" },
+  { id: 12, name: "Yazd" },
+  { id: 13, name: "Arak" },
+  { id: 14, name: "Esfahan" },
+  { id: 15, name: "Zahedan" },
+  { id: 16, name: "Qazvin" },
+  { id: 17, name: "Khorramabad" },
+  { id: 18, name: "Urmia" },
+  { id: 19, name: "Bandar Abbas" },
+  { id: 20, name: "Zanjan" },
 ];
 
 export const citiesCoordinates = [

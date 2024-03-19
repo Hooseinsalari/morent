@@ -36,7 +36,7 @@ function extractDate(dateString: string) {
   return formattedDate;
 }
 
-function numberOfDays(start: string, end: string) {
+function numberOfDays(start: number, end: number) {
   const startDate = new Date(`${start}`);
   const endDate = new Date(`${end}`);
 
