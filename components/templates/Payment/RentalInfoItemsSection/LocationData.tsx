@@ -23,19 +23,15 @@ import { citiesInIran } from "@/constant";
 import { PickUpDropOffInterface } from "@/types";
 
 interface Props {
-  pickUpDetails: PickUpDropOffInterface;
-  setPickUpDetails: React.Dispatch<
-    React.SetStateAction<PickUpDropOffInterface>
-  >;
+  setLocationHandler: (selected: string) => void;
+  selectedLocation: string;
 }
 
-const LocationData = ({ pickUpDetails, setPickUpDetails }: Props) => {
+const LocationData = ({ selectedLocation, setLocationHandler }: Props) => {
   return (
     <ComboBox
       defaultItems={citiesInIran}
-      onInputChange={(selected) =>
-        setPickUpDetails({ ...pickUpDetails, location: selected })
-      }
+      onInputChange={setLocationHandler}
       className="w-full"
     >
       <Label className="text-secondinary-500 text-sm font-semibold mb-2 inline-block">
@@ -57,7 +53,7 @@ const LocationData = ({ pickUpDetails, setPickUpDetails }: Props) => {
               textValue={item.name}
               key={item.id}
               className={`my-4 p-2 hover:bg-[#e5e7eb] cursor-pointer ${
-                item.name === pickUpDetails.location ? "bg-[#e5e7eb]" : ""
+                item.name === selectedLocation ? "bg-[#e5e7eb]" : ""
               }`}
             >
               <span>{item.name}</span>

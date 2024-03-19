@@ -31,21 +31,26 @@ import type {
 import { getLocalTimeZone } from "@internationalized/date";
 
 // types
-import { PickUpDropOffInterface } from "@/types";
+import { MinTimeType, PickUpDropOffInterface } from "@/types";
 
 interface Props {
-  pickUpDetails: PickUpDropOffInterface;
-  setPickUpDetails: React.Dispatch<
+  pickUpDropOffDetails: PickUpDropOffInterface;
+  setPickUpDropOffDetails: React.Dispatch<
     React.SetStateAction<PickUpDropOffInterface>
   >;
+  minTime?: MinTimeType;
 }
 
-const DateData = ({ pickUpDetails, setPickUpDetails }: Props) => {
+const DateData = ({
+  pickUpDropOffDetails,
+  setPickUpDropOffDetails,
+  minTime,
+}: Props) => {
   return (
     <DatePicker
       onChange={(e) =>
-        setPickUpDetails({
-          ...pickUpDetails,
+        setPickUpDropOffDetails({
+          ...pickUpDropOffDetails,
           date: {
             day: e.day,
             month: e.month,
@@ -106,11 +111,19 @@ const DateData = ({ pickUpDetails, setPickUpDetails }: Props) => {
               </CalendarGridHeader>
               <CalendarGridBody>
                 {(date) => {
-                  const isPast =
-                    new Date(date.year, date.month - 1, date.day + 1) <
-                    new Date();
+                  // Disable past days
+                  const isPast = minTime?.day
+                    ? new Date(date.year, date.month - 1, date.day) <
+                      new Date(
+                        minTime.year!,
+                        minTime.month! - 1,
+                        minTime.day!
+                      )
+                    : new Date(date.year, date.month - 1, date.day) <
+                      new Date();
+
                   const cellClassName = `w-9 h-9 outline-none cursor-default rounded-full flex items-center justify-center outside-month:text-gray-300 hover:bg-gray-100 pressed:bg-gray-200 selected:bg-violet-700 selected:text-white focus-visible:ring ring-violet-600/70 ring-offset-2 ${
-                    pickUpDetails.date.day
+                    pickUpDropOffDetails.date.day
                   } ${isPast ? "text-gray-300 hover:bg-white" : ""}`;
                   return <CalendarCell date={date} className={cellClassName} />;
                 }}

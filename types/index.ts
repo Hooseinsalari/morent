@@ -136,3 +136,9 @@ export interface RentalInfoProps {
     React.SetStateAction<PickUpDropOffInterface>
   >;
 }
+
+export interface MinTimeType {
+  day: number | null;
+  month: number | null;
+  year: number | null;
+}

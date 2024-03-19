@@ -12,18 +12,18 @@ import {
 import { PickUpDropOffInterface } from "@/types";
 
 interface Props {
-  pickUpDetails: PickUpDropOffInterface;
-  setPickUpDetails: React.Dispatch<
+  pickUpDropOffDetails: PickUpDropOffInterface;
+  setPickUpDropOffDetails: React.Dispatch<
     React.SetStateAction<PickUpDropOffInterface>
   >;
 }
 
-const TimeData = ({ pickUpDetails, setPickUpDetails }: Props) => {
+const TimeData = ({ pickUpDropOffDetails, setPickUpDropOffDetails }: Props) => {
   return (
     <TimeField
       onChange={(e) =>
-        setPickUpDetails({
-          ...pickUpDetails,
+        setPickUpDropOffDetails({
+          ...pickUpDropOffDetails,
           time: `${e.hour}:${e.minute}`,
         })
       }
