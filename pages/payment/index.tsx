@@ -1,4 +1,5 @@
 import BillingInfo from "@/components/templates/Payment/BillingInfo";
+import Confirmation from "@/components/templates/Payment/Confirmation";
 import PaymentMethod from "@/components/templates/Payment/PaymentMethod";
 import RentSummary from "@/components/templates/Payment/RentSummary";
 import RentalInfo from "@/components/templates/Payment/RentalInfo";
@@ -50,6 +51,8 @@ const index = () => {
     }));
   };
 
+  const rentHandler = () => {}
+
   return (
     <div className="px-6 md:px-10 flex flex-col lg:flex-row-reverse lg:gap-x-2">
       <div className="flex-shrink lg:w-2/5 lg:px-6">
@@ -72,6 +75,11 @@ const index = () => {
         <PaymentMethod
           inputsValue={inputsValue}
           handleInputChange={handleInputChange}
+        />
+        <Confirmation
+          inputsValue={inputsValue}
+          handleInputChange={handleInputChange}
+          rentHandler={rentHandler}
         />
       </div>
     </div>
