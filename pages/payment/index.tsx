@@ -1,4 +1,5 @@
 import BillingInfo from "@/components/templates/Payment/BillingInfo";
+import PaymentMethod from "@/components/templates/Payment/PaymentMethod";
 import RentSummary from "@/components/templates/Payment/RentSummary";
 import RentalInfo from "@/components/templates/Payment/RentalInfo";
 import { InputsValueInterface, PickUpDropOffInterface } from "@/types";
@@ -15,6 +16,7 @@ const index = () => {
     },
     time: "",
   });
+
   const [dropOffDetails, setDropOffDetails] = useState<PickUpDropOffInterface>({
     location: "",
     date: {
@@ -66,6 +68,10 @@ const index = () => {
           setPickUpDetails={setPickUpDetails}
           dropOffDetails={dropOffDetails}
           setDropOffDetails={setDropOffDetails}
+        />
+        <PaymentMethod
+          inputsValue={inputsValue}
+          handleInputChange={handleInputChange}
         />
       </div>
     </div>
