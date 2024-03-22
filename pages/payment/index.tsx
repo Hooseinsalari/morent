@@ -1,12 +1,33 @@
+import axios from "axios";
+import { useRouter } from "next/router";
+import { useState } from "react";
+
+// components
 import BillingInfo from "@/components/templates/Payment/BillingInfo";
 import Confirmation from "@/components/templates/Payment/Confirmation";
 import PaymentMethod from "@/components/templates/Payment/PaymentMethod";
 import RentSummary from "@/components/templates/Payment/RentSummary";
 import RentalInfo from "@/components/templates/Payment/RentalInfo";
+
+// context
+import { useRentalCart } from "@/context/RentalCartContextProvider";
+
+// helper
+import { isFilled } from "@/helper/functions";
+
+// types
 import { InputsValueInterface, PickUpDropOffInterface } from "@/types";
-import { useState } from "react";
+
+// toast
+import toast from "react-hot-toast";
 
 const index = () => {
+  // ** router
+  const router = useRouter();
+
+  // ** context
+  const { state, dispatch } = useRentalCart();
+
   // ** state
   const [pickUpDetails, setPickUpDetails] = useState<PickUpDropOffInterface>({
     location: "",
@@ -41,7 +62,7 @@ const index = () => {
     check1: false,
   });
 
-  // ** handler
+  // ** handlers
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value, type, checked } = e.target;
 
@@ -51,7 +72,49 @@ const index = () => {
     }));
   };
 
-  const rentHandler = () => {}
+  const rentHandler = async () => {
+    const inputsValueFilled = isFilled(inputsValue);
+    const pickUpDetailsFilled = isFilled(pickUpDetails);
+    const dropOffDetailsFilled = isFilled(dropOffDetails);
+
+    if (!inputsValueFilled && !pickUpDetailsFilled && !dropOffDetailsFilled) {
+      toast.error(
+        "Oops! It looks like some information is missing. Please fill out all the required fields to proceed with your payment.",
+        {
+          duration: 6000,
+        }
+      );
+      return;
+    } else {
+      dispatch({ type: "CHECKOUT" });
+
+      try {
+        const user = await axios.put(
+          "http://localhost:3000/api/user/updateRentalCarList",
+          {
+            carId: state.selectedCar?._id,
+            pickUpDetails,
+            dropOffDetails,
+          }
+        );
+
+        if (user.status === 200) {
+          toast.success(user.data.message, { duration: 4000 });
+
+          router.replace("/dashboard");
+        }
+      } catch (error: any) {
+        if (
+          error.response &&
+          (error.response.status === 401 || error.response.status === 404)
+        ) {
+          toast.error(error.response.data.message);
+        } else {
+          toast.error("An error occurred. Please try again later.");
+        }
+      }
+    }
+  };
 
   return (
     <div className="px-6 md:px-10 flex flex-col lg:flex-row-reverse lg:gap-x-2">

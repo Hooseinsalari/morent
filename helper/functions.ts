@@ -49,4 +49,15 @@ function numberOfDays(start: number, end: number) {
   return numberOfDays.toFixed(2);
 }
 
-export { formatDate, formatTime, truncateString, extractDate, numberOfDays };
+function isFilled(obj: {}) {
+  return Object.values(obj).every((value) => value !== "" && value !== false);
+}
+
+export {
+  formatDate,
+  formatTime,
+  truncateString,
+  extractDate,
+  numberOfDays,
+  isFilled,
+};

@@ -9,8 +9,8 @@ import React, {
 
 type ActionType =
   | { type: "RENT"; payload: CarInterface }
-  | { type: "CHECKOUT"; payload: CarInterface }
-  | { type: "CLEAR"; payload: CarInterface };
+  | { type: "CHECKOUT" }
+  | { type: "CLEAR" };
 
 interface ReducerStateInterface {
   selectedCar: CarInterface | null;
@@ -83,14 +83,6 @@ const RentalCartContextProvider = ({
   useEffect(() => {
     localStorage.setItem("state", JSON.stringify(state));
   }, [state]);
-
-  //   useEffect(() => {
-  //     const savedState = localStorage.getItem("state");
-  //     if (savedState) {
-  //       const { selectedCar } = JSON.parse(savedState);
-  //       console.log("saved state is: ", selectedCar);
-  //     }
-  //   }, []);
 
   return (
     <rentalCartContext.Provider value={{ state, dispatch }}>
