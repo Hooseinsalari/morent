@@ -22,9 +22,28 @@ const userSchema = new mongoose.Schema(
     },
     rentedCars: [
       {
-        required: false,
-        type: mongoose.Schema.ObjectId,
-        ref: "carsModel",
+        carInfo: {
+          type: mongoose.Schema.ObjectId,
+          ref: "carsModel",
+        },
+        pickUpDetails: {
+          location: String,
+          date: {
+            day: { type: Number, default: null },
+            month: { type: Number, default: null },
+            year: { type: Number, default: null },
+          },
+          time: String,
+        },
+        dropOffDetails: {
+          location: String,
+          date: {
+            day: { type: Number, default: null },
+            month: { type: Number, default: null },
+            year: { type: Number, default: null },
+          },
+          time: String,
+        },
       },
     ],
   },
@@ -36,4 +55,3 @@ const userSchema = new mongoose.Schema(
 const usersModel = mongoose.models.User || mongoose.model("User", userSchema);
 
 export default usersModel;
-
