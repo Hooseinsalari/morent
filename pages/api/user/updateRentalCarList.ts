@@ -1,7 +1,11 @@
+import type { NextApiRequest, NextApiResponse } from "next";
+
+// models
 import usersModel from "@/models/user";
+
+// utils
 import { verifyToken } from "@/utils/auth";
 import connectToDB from "@/utils/db";
-import type { NextApiRequest, NextApiResponse } from "next";
 
 export default async function handler(
   req: NextApiRequest,
@@ -14,7 +18,7 @@ export default async function handler(
   try {
     connectToDB();
 
-    const { carId } = req.body;
+    const { carId, pickUpDetails, dropOffDetails } = req.body;
 
     const { token } = req.cookies;
 
@@ -32,9 +36,15 @@ export default async function handler(
 
     const filter = { email: user.email };
 
+    const newRentalEntry = {
+      carInfo: carId,
+      pickUpDetails,
+      dropOffDetails,
+    };
+
     const update = {
       $push: {
-        rentedCars: carId,
+        rentedCars: newRentalEntry,
       },
     };
 
