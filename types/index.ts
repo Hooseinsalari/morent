@@ -72,10 +72,16 @@ export interface SignInFormData {
   password: string;
 }
 
+export interface RentedCarInterface {
+  carInfo: CarInterface;
+  pickUpDetails: PickUpDropOffInterface;
+  dropOffDetails: PickUpDropOffInterface;
+}
+
 export interface UserData {
   username: string;
   email: string;
-  rentedCars: string[] | [];
+  rentedCars: RentedCarInterface[] | [];
   _id: string;
 }
 
@@ -86,26 +92,12 @@ export interface ReviewInterface {
     username: string;
     email: string;
     role: string;
-    rentedCars: string[] | [];
+    rentedCars: RentedCarInterface[] | [];
   };
   car: string;
   comment: string;
   rating: number;
   createdAt: string;
-}
-
-export interface RentedCarInterface {
-  pickUpTime: string;
-  dropOffTime: string;
-  totalPrice: number;
-  _id: string;
-  name: string;
-  type: string;
-  gasoline: number;
-  steering: string;
-  capacity: number;
-  price: number;
-  image: string;
 }
 
 export interface InputsValueInterface {
