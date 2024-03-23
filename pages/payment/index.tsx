@@ -1,6 +1,6 @@
 import axios from "axios";
 import { useRouter } from "next/router";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
 // components
 import BillingInfo from "@/components/templates/Payment/BillingInfo";
@@ -62,6 +62,13 @@ const index = () => {
     check1: false,
   });
 
+  // ** useEffect
+  useEffect(() => {
+    if (!state.selectedCar) {
+      router.replace("/");
+    }
+  }, []);
+
   // ** handlers
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value, type, checked } = e.target;
@@ -86,13 +93,11 @@ const index = () => {
       );
       return;
     } else {
-      dispatch({ type: "CHECKOUT" });
-
       try {
         const user = await axios.put(
           "http://localhost:3000/api/user/updateRentalCarList",
           {
-            carId: state.selectedCar?._id,
+            carInfo: state.selectedCar,
             pickUpDetails,
             dropOffDetails,
           }
@@ -100,6 +105,8 @@ const index = () => {
 
         if (user.status === 200) {
           toast.success(user.data.message, { duration: 4000 });
+
+          dispatch({ type: "CHECKOUT" });
 
           router.replace("/dashboard");
         }

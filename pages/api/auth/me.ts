@@ -2,6 +2,7 @@ import type { NextApiRequest, NextApiResponse } from "next";
 
 // model
 import usersModel from "@/models/user";
+import carsModel from "@/models/car";
 
 // utils
 import { verifyToken } from "@/utils/auth";
@@ -30,10 +31,12 @@ export default async function handler(
       return res.status(401).json({ message: "You are not logged in!" });
     }
 
-    const user = await usersModel.findOne(
-      { email: tokenPayload.email },
-      "username email rentedCars"
-    );
+    const user = await usersModel
+      .findOne({ email: tokenPayload.email }, "username email rentedCars")
+      .populate({
+        path: "rentedCars.carInfo",
+        model: carsModel,
+      });
 
     return res.status(200).json({ data: user });
   } catch (error) {

@@ -18,7 +18,7 @@ export default async function handler(
   try {
     connectToDB();
 
-    const { carId, pickUpDetails, dropOffDetails } = req.body;
+    const { carInfo, pickUpDetails, dropOffDetails } = req.body;
 
     const { token } = req.cookies;
 
@@ -37,7 +37,7 @@ export default async function handler(
     const filter = { email: user.email };
 
     const newRentalEntry = {
-      carInfo: carId,
+      carInfo,
       pickUpDetails,
       dropOffDetails,
     };
