@@ -30,6 +30,7 @@ const CarCard = ({ car }: { car: CarInterface }) => {
   const rentCarHandler = () => {
     if (user) {
       dispatch({ type: "RENT", payload: car });
+      router.push("/payment")
     } else {
       toast.error("Login required to proceed with car rental.");
       router.push("/signin?redirect=payment");

@@ -1,4 +1,6 @@
 import React, { useState } from "react";
+import { useRouter } from "next/router";
+import toast from "react-hot-toast";
 import Image from "next/image";
 
 // icons
@@ -11,8 +13,16 @@ import { Zoom } from "yet-another-react-lightbox/plugins";
 
 // types
 import { CarInterface } from "@/types";
+
+// image
 import CarImages from "./CarImages";
+
+// component
 import DetailItems from "./DetailItems";
+
+// context
+import { useUser } from "@/context/UserContextProvider";
+import { useRentalCart } from "@/context/RentalCartContextProvider";
 
 // ** slides
 const slides = [
@@ -121,6 +131,24 @@ const CarInfo = ({ car }: { car: CarInterface }) => {
   // ** states
   const [open, setOpen] = useState<boolean>(false);
 
+  // ** context
+  const { user } = useUser();
+  const { dispatch } = useRentalCart();
+
+  // ** router
+  const router = useRouter();
+
+  // ** handler
+  const rentCarHandler = () => {
+    if (user) {
+      dispatch({ type: "RENT", payload: car });
+      router.push("/payment");
+    } else {
+      toast.error("Login required to proceed with car rental.");
+      router.push("/signin?redirect=payment");
+    }
+  };
+
   return (
     <>
       <Lightbox
@@ -194,6 +222,7 @@ const CarInfo = ({ car }: { car: CarInterface }) => {
             </h3>
             <button
               className="bg-primary-500 text-sm text-white px-4 py-2 rounded-[4px] lg:text-lg"
+              onClick={rentCarHandler}
             >
               Rental Now
             </button>
