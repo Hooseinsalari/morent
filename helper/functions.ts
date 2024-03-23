@@ -53,6 +53,25 @@ function isFilled(obj: {}) {
   return Object.values(obj).every((value) => value !== "" && value !== false);
 }
 
+function getMonthName(num: number | null) {
+  const monthName: string[] = [
+    "Jan",
+    "Feb",
+    "Mar",
+    "Apr",
+    "May",
+    "Jun",
+    "Jul",
+    "Aug",
+    "Sep",
+    "Oct",
+    "Nov",
+    "Dec",
+  ];
+
+  return monthName[num! - 1];
+}
+
 export {
   formatDate,
   formatTime,
@@ -60,4 +79,5 @@ export {
   extractDate,
   numberOfDays,
   isFilled,
+  getMonthName,
 };
