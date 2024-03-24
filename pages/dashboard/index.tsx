@@ -1,4 +1,5 @@
 import DetailRental from "@/components/templates/Dashboard/DetailRental";
+import RecentTransaction from "@/components/templates/Dashboard/RecentTransaction";
 import TopRentedCar from "@/components/templates/Dashboard/TopRentedCar";
 import { useUser } from "@/context/UserContextProvider";
 import axios from "axios";
@@ -24,6 +25,7 @@ const Dashboard = () => {
         className={`${user?.rentedCars[lastCar] ? "lg:w-1/2" : "lg:w-full"}`}
       >
         <TopRentedCar />
+        <RecentTransaction />
       </div>
     </div>
   );
