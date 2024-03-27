@@ -15,12 +15,20 @@ const PickupDropoffDetails = () => {
   // ** States
   const [pickUp, setPickUp] = useState<PickUpDropOffInterface>({
     location: "",
-    date: "",
+    date: {
+      day: null,
+      month: null,
+      year: null,
+    },
     time: "",
   });
   const [dropOff, setDropOff] = useState<PickUpDropOffInterface>({
     location: "",
-    date: "",
+    date: {
+      day: null,
+      month: null,
+      year: null,
+    },
     time: "",
   });
 

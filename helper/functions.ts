@@ -8,14 +8,19 @@ function formatDate(selectedDate: Date | null | undefined) {
   return `${day} ${month} ${year}`;
 }
 
-function formatTime(selectedTime: any) {
-  const time = selectedTime.toLocaleTimeString([], {
-    hour: "2-digit",
-    minute: "2-digit",
-    hour12: false,
-  });
+function formatTime(hour: number, minute: number) {
+  let formatedHour = `${hour}`;
+  let formatedMinute = `${minute}`;
 
-  return `${time}`;
+  if (hour <= 9) {
+    formatedHour = `0${hour}`;
+  }
+
+  if (minute <= 9) {
+    formatedMinute = `0${minute}`;
+  }
+
+  return `${formatedHour} : ${formatedMinute}`;
 }
 
 function truncateString(str: string | undefined, len: number) {
