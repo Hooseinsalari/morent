@@ -206,8 +206,8 @@ const CarInfo = ({ car }: { car: CarInterface }) => {
             </h3>
           </div>
           <p className="my-5 text-secondinary-300 font-normal text-sm leading-6 lg:text-base">
-            NISMO has become the embodiment of Nissan's outstanding performance,
-            inspired by the most unforgiving proving ground, the "race track".
+            {`NISMO has become the embodiment of Nissan's outstanding performance,
+            inspired by the most unforgiving proving ground, the "race track".`}
           </p>
           <div className="grid grid-cols-2 gap-y-5 gap-x-5 lg:mt-auto lg:mb-14">
             <DetailItems title="Type Car" value={car.type} />

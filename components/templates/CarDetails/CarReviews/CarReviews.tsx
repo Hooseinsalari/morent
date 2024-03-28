@@ -44,7 +44,7 @@ const CarReviews = ({ reviews }: Props) => {
   // ** handler
   // the modal for add new review
   const openModalHandler = () => {
-    const isRented = user?.rentedCars.find((i) => i === query.id);
+    const isRented = user?.rentedCars.find((i) => i.carInfo._id === query.id);
 
     if (!user) {
       toast.error("Please log in to continue.");

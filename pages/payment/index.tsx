@@ -21,7 +21,7 @@ import { InputsValueInterface, PickUpDropOffInterface } from "@/types";
 // toast
 import toast from "react-hot-toast";
 
-const index = () => {
+const Payment = () => {
   // ** router
   const router = useRouter();
 
@@ -156,4 +156,4 @@ const index = () => {
   );
 };
 
-export default index;
+export default Payment;
