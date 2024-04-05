@@ -145,7 +145,11 @@ const SignIn = () => {
           </button>
           <Link
             className="text-sm font-medium text-secondinary-300 mt-2"
-            href="/signup"
+            href={
+              router.query.redirect
+                ? `/signup?redirect=${router.query.redirect}`
+                : "/signup"
+            }
           >
             Create account
           </Link>

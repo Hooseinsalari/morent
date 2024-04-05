@@ -33,8 +33,6 @@ const carReducer = (
   state: ReducerStateInterface,
   action: ActionType
 ): ReducerStateInterface => {
-  console.log(state);
-
   switch (action.type) {
     case "RENT":
       return {
