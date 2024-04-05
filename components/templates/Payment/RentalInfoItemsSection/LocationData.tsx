@@ -40,7 +40,7 @@ const LocationData = ({ selectedLocation, setLocationHandler }: Props) => {
       <Group className="flex justify-between rounded-lg bg-[#F6F7F9] overflow-hidden">
         <Input
           placeholder="Select yout city"
-          className="w-full text-sm mr-2 border-none py-3 px-4 placeholder:text-secondinary-500 focus:ring-0 bg-transparent font-medium"
+          className="w-full text-sm mr-2 border-none py-3 px-4 placeholder:text-secondinary-400 focus:ring-0 bg-transparent font-medium"
         />
         <Button className="hover:bg-[#e5e7eb] px-2">
           <Image src={Arrow} width={16} height={16} alt="arrow" />
