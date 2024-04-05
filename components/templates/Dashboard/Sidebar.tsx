@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import axios from "axios";
 import Link from "next/link";
 import Image from "next/image";
+import { useRouter } from "next/router";
 
 // context
 import { useUser } from "@/context/UserContextProvider";
@@ -17,6 +18,9 @@ import Logout from "@/public/svg/logout2.svg";
 import { mainMenuItems, preferencesItems } from "@/constant";
 
 const Sidebar = () => {
+  // ** router
+  const router = useRouter();
+
   // ** states
   const [isOpen, setIsOpen] = useState(false);
 
@@ -27,6 +31,7 @@ const Sidebar = () => {
   const logoutHandler = async () => {
     const response = await axios.get("http://localhost:3000/api/auth/signOut");
     if (response.status === 200) {
+      router.replace("/");
       toast.success(response.data.message);
       setUser(null);
     } else {

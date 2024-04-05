@@ -1,17 +1,20 @@
+import { GetServerSideProps } from "next";
+import React from "react";
+
+// components
 import DetailRental from "@/components/templates/Dashboard/DetailRental";
 import RecentTransaction from "@/components/templates/Dashboard/RecentTransaction";
 import Sidebar from "@/components/templates/Dashboard/Sidebar";
 import TopRentedCar from "@/components/templates/Dashboard/TopRentedCar";
+
+// context
 import { useUser } from "@/context/UserContextProvider";
-import axios from "axios";
-import { GetServerSideProps } from "next";
-import { useRouter } from "next/router";
-import React, { useEffect } from "react";
+
+// utils
+import { verifyToken } from "@/utils/auth";
+import connectToDB from "@/utils/db";
 
 const Dashboard = () => {
-  // ** router
-  const router = useRouter();
-
   // ** context
   const { user } = useUser();
 
@@ -37,3 +40,39 @@ const Dashboard = () => {
 };
 
 export default Dashboard;
+
+export const getServerSideProps: GetServerSideProps = async ({ req }) => {
+  try {
+    connectToDB();
+
+    const { token } = req.cookies;
+
+    if (!token) {
+      return {
+        props: {},
+        redirect: {
+          destination: "/",
+        },
+      };
+    }
+
+    const tokenPayload = verifyToken(token!);
+
+    if (!tokenPayload) {
+      return {
+        props: {},
+        redirect: {
+          destination: "/",
+        },
+      };
+    }
+
+    return {
+      props: {},
+    };
+  } catch (error) {
+    return {
+      props: {},
+    };
+  }
+};
