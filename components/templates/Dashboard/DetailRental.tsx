@@ -7,9 +7,6 @@ import { useUser } from "@/context/UserContextProvider";
 // function
 import { getMonthName } from "@/helper/functions";
 
-// skeleton
-import DetailRentalCarSkeleton from "@/skeleton/DetailRentalCarSkeleton";
-
 const DetailRental = () => {
   // ** context
   const { user } = useUser();
@@ -124,9 +121,7 @@ const DetailRental = () => {
             </h2>
           </div>
         </div>
-      ) : (
-        <DetailRentalCarSkeleton />
-      )}
+      ) : null}
     </>
   );
 };
