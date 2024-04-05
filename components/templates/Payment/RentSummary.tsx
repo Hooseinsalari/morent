@@ -6,7 +6,7 @@ import Image from "next/image";
 import { useRentalCart } from "@/context/RentalCartContextProvider";
 
 // helper
-import { numberOfDays } from "@/helper/functions";
+import { totalPriceCalculation } from "@/helper/functions";
 
 // svg
 import Star from "@/public/svg/star-icon.svg";
@@ -22,15 +22,16 @@ const RentSummary = ({
   // ** context
   const { state } = useRentalCart();
 
-  console.log(state);
-
-  // ** calc total price
-  let totalPrice = (
-    +numberOfDays(startDate, endDate) * state?.selectedCar?.price!
-  ).toFixed(2);
-
+  // ** state
   const [isClient, setIsClient] = useState(false);
 
+  // ** var
+  const totalPrice =
+    startDate && endDate && state?.selectedCar?.price
+      ? totalPriceCalculation(endDate, startDate, state?.selectedCar?.price)
+      : state?.selectedCar?.price.toFixed(2);
+
+  // ** useEffect
   useEffect(() => {
     setIsClient(true);
   }, []);
@@ -134,10 +135,7 @@ const RentSummary = ({
               </h3>
             </div>
             <h1 className="text-secondinary-500 text-xl font-bold sm:text-2xl">
-              {/* calculate total price */}$
-              {startDate && endDate && state?.selectedCar?.price
-                ? totalPrice
-                : state?.selectedCar?.price.toFixed(2)}
+              ${totalPrice}
             </h1>{" "}
           </div>
         </div>

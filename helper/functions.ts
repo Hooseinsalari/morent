@@ -41,17 +41,14 @@ function extractDate(dateString: string) {
   return formattedDate;
 }
 
-function numberOfDays(start: number, end: number) {
-  const startDate = new Date(`${start}`);
-  const endDate = new Date(`${end}`);
+function totalPriceCalculation(end: number, start: number, price: number) {
+  let totalPrice = price;
 
-  let timeDifference = endDate.getTime() - startDate.getTime();
+  if (end !== start) {
+    totalPrice = (end - start) * price;
+  }
 
-  const numberOfDays = Math.ceil(
-    (timeDifference || 86400000) / (1000 * 60 * 60 * 24)
-  );
-
-  return numberOfDays.toFixed(2);
+  return totalPrice.toFixed(2);
 }
 
 function isFilled(obj: {}) {
@@ -82,7 +79,7 @@ export {
   formatTime,
   truncateString,
   extractDate,
-  numberOfDays,
+  totalPriceCalculation,
   isFilled,
   getMonthName,
 };
