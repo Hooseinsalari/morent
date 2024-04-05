@@ -23,6 +23,7 @@ import toast from "react-hot-toast";
 import connectToDB from "@/utils/db";
 import { GetServerSideProps } from "next";
 import { verifyToken } from "@/utils/auth";
+import { useUser } from "@/context/UserContextProvider";
 
 const Payment = () => {
   // ** router
@@ -30,6 +31,7 @@ const Payment = () => {
 
   // ** context
   const { state, dispatch } = useRentalCart();
+  const { setUser } = useUser();
 
   // ** state
   const [pickUpDetails, setPickUpDetails] = useState<PickUpDropOffInterface>({
@@ -96,33 +98,35 @@ const Payment = () => {
       );
       return;
     } else {
-      try {
-        const user = await axios.put(
-          "http://localhost:3000/api/user/updateRentalCarList",
-          {
-            carInfo: state.selectedCar,
-            pickUpDetails,
-            dropOffDetails,
-          }
-        );
-
-        if (user.status === 200) {
-          toast.success(user.data.message, { duration: 4000 });
-
-          dispatch({ type: "CHECKOUT" });
-
-          router.replace("/dashboard");
+    try {
+      const user = await axios.put(
+        "http://localhost:3000/api/user/updateRentalCarList",
+        {
+          carInfo: state.selectedCar,
+          pickUpDetails,
+          dropOffDetails,
         }
-      } catch (error: any) {
-        if (
-          error.response &&
-          (error.response.status === 401 || error.response.status === 404)
-        ) {
-          toast.error(error.response.data.message);
-        } else {
-          toast.error("An error occurred. Please try again later.");
-        }
+      );
+
+      if (user.status === 200) {
+        toast.success(user.data.message, { duration: 4000 });
+
+        setUser(user.data.user)
+
+        dispatch({ type: "CHECKOUT" });
+
+        router.replace("/");
       }
+    } catch (error: any) {
+      if (
+        error.response &&
+        (error.response.status === 401 || error.response.status === 404)
+      ) {
+        toast.error(error.response.data.message);
+      } else {
+        toast.error("An error occurred. Please try again later.");
+      }
+    }
     }
   };
 

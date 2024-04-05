@@ -16,7 +16,7 @@ const RecentTransaction = () => {
         user?.rentedCars?.map((car, index) => {
           return (
             <div
-              key={car.carInfo._id}
+              key={index}
               className={`flex items-center justify-between my-2 border-b py-2 ${
                 user.rentedCars.length - 1 === index ? "border-b-0" : ""
               }`}

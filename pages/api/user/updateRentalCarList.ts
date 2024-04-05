@@ -56,9 +56,12 @@ export default async function handler(
         .json({ message: "Unable to confirm car rental. Please try again." });
     }
 
-    return res
-      .status(200)
-      .json({ message: "Car rental confirmed. Enjoy your trip!" });
+    const updatedUser = await usersModel.findOne({ email: tokenPayload.email });
+
+    return res.status(200).json({
+      message: "Car rental confirmed. Enjoy your trip!",
+      user: updatedUser,
+    });
   } catch (error) {
     return res.status(500).json({
       message: "An unexpected error occurred. Please try again later.",

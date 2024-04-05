@@ -1,5 +1,5 @@
 import { GetServerSideProps } from "next";
-import React from "react";
+import React, { useEffect, useState } from "react";
 
 // components
 import DetailRental from "@/components/templates/Dashboard/DetailRental";
@@ -19,7 +19,7 @@ const Dashboard = () => {
   const { user } = useUser();
 
   // ** var
-  const lastCar: number = user?.rentedCars ? user?.rentedCars?.length - 1 : 0;
+  let lastCar = user?.rentedCars ? user?.rentedCars?.length - 1 : 0;
 
   return (
     <div className="px-6 py-8 relative lg:static lg:flex lg:flex-row-reverse lg:justify-between lg:p-0 lg:gap-4">
