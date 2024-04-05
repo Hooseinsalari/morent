@@ -82,7 +82,7 @@ export default function DesktopFilterBar({
                   name="type"
                   checked={queryParamsFilter.type.includes(i)}
                 />
-                <label className="text-sm lg:text-base font-medium text-secondinary-400">
+                <label htmlFor={i} className="text-sm lg:text-base font-medium text-secondinary-400">
                   {i}
                 </label>
               </li>
@@ -107,7 +107,7 @@ export default function DesktopFilterBar({
                   name="capacity"
                   checked={queryParamsFilter.capacity.includes(i)}
                 />
-                <label className="text-sm lg:text-base font-medium text-secondinary-400">
+                <label htmlFor={i} className="text-sm lg:text-base font-medium text-secondinary-400">
                   {i} Person
                 </label>
               </li>
