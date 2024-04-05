@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import Link from "next/link";
 import axios from "axios";
 import { useRouter } from "next/router";
+import { GetServerSideProps } from "next";
 
 // loading
 import LoadingSpinner from "@/components/modules/LoadingSpinner/LoadingSpinner";
@@ -17,6 +18,10 @@ import toast from "react-hot-toast";
 
 // context
 import { useUser } from "@/context/UserContextProvider";
+
+// utils
+import connectToDB from "@/utils/db";
+import { verifyToken } from "@/utils/auth";
 
 const SignUp = () => {
   // ** states
@@ -206,3 +211,39 @@ const SignUp = () => {
 };
 
 export default SignUp;
+
+export const getServerSideProps: GetServerSideProps = async ({ req }) => {
+  try {
+    connectToDB();
+
+    const { token } = req.cookies;
+
+    if (token) {
+      return {
+        props: {},
+        redirect: {
+          destination: "/",
+        },
+      };
+    }
+
+    const tokenPayload = verifyToken(token!);
+
+    if (tokenPayload) {
+      return {
+        props: {},
+        redirect: {
+          destination: "/",
+        },
+      };
+    }
+
+    return {
+      props: {},
+    };
+  } catch (error) {
+    return {
+      props: {},
+    };
+  }
+};

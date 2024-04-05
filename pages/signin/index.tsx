@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import axios from "axios";
 import Link from "next/link";
 import { useRouter } from "next/router";
+import { GetServerSideProps } from "next";
 
 // components
 import LoadingSpinner from "@/components/modules/LoadingSpinner/LoadingSpinner";
@@ -17,6 +18,10 @@ import toast from "react-hot-toast";
 
 // context
 import { useUser } from "@/context/UserContextProvider";
+
+// utils
+import connectToDB from "@/utils/db";
+import { verifyToken } from "@/utils/auth";
 
 const SignIn = () => {
   // ** states
@@ -95,7 +100,7 @@ const SignIn = () => {
         onSubmit={handleSubmit(handleRegistration)}
         className="bg-white rounded-md h-fit p-4 w-4/5 mx-auto md:w-1/2 lg:w-2/5 md:py-6 md:px-8 shadow-md"
       >
-        <h1 className="text-secondinary-500 text-xl font-bold mb-8">Login</h1>
+        <h1 className="text-secondinary-500 text-xl font-bold mb-8">Sign In</h1>
         <div className="my-5 flex flex-col">
           <label className="font-semibold text-secondinary-500" htmlFor="email">
             Name or Email
@@ -151,3 +156,39 @@ const SignIn = () => {
 };
 
 export default SignIn;
+
+export const getServerSideProps: GetServerSideProps = async ({ req }) => {
+  try {
+    connectToDB();
+
+    const { token } = req.cookies;
+
+    if (token) {
+      return {
+        props: {},
+        redirect: {
+          destination: "/",
+        },
+      };
+    }
+
+    const tokenPayload = verifyToken(token!);
+
+    if (tokenPayload) {
+      return {
+        props: {},
+        redirect: {
+          destination: "/",
+        },
+      };
+    }
+
+    return {
+      props: {},
+    };
+  } catch (error) {
+    return {
+      props: {},
+    };
+  }
+};
