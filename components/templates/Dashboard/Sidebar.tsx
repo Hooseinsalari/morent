@@ -75,36 +75,12 @@ const Sidebar = () => {
                   ))}
                 </ul>
               </div>
-
-              <div className="mt-16 w-full">
-                <h1 className="text-secondinary-200 text-xs mb-5 tracking-wider ml-4">
-                  PREFERENCES
-                </h1>
-                <ul>
-                  {preferencesItems.map((i) => (
-                    <Link
-                      href="/dashboard"
-                      key={i.item}
-                      className="flex items-center p-4 hover:bg-primary-500 duration-300 hover:fill-white rounded-xl text-secondinary-400 font-semibold hover:text-white mb-2"
-                    >
-                      <Image
-                        width={22}
-                        height={22}
-                        src={i.icon}
-                        alt={i.item}
-                        className="mr-3"
-                      />
-                      <span>{i.item}</span>
-                    </Link>
-                  ))}
-                </ul>
-              </div>
             </div>
 
             <div className="w-full my-8 flex-1">
               <button
                 onClick={logoutHandler}
-                className="flex w-full items-center p-4 hover:bg-primary-500 duration-300 hover:fill-white rounded-xl text-secondinary-400 font-semibold hover:text-white mb-2"
+                className="flex w-full items-center p-4 hover:bg-red-500 duration-300 hover:fill-white rounded-xl text-secondinary-400 font-semibold hover:text-white mb-2"
               >
                 <Image
                   width={22}
@@ -113,7 +89,7 @@ const Sidebar = () => {
                   alt="logout"
                   className="mr-3"
                 />
-                <span>Logout</span>
+                <span className="">Logout</span>
               </button>
             </div>
           </div>

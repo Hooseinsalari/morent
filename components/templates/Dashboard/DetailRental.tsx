@@ -1,9 +1,14 @@
-import { useRentalCart } from "@/context/RentalCartContextProvider";
-import { useUser } from "@/context/UserContextProvider";
-import { getMonthName } from "@/helper/functions";
-import axios from "axios";
 import Image from "next/image";
-import React, { useEffect } from "react";
+import React from "react";
+
+// context
+import { useUser } from "@/context/UserContextProvider";
+
+// function
+import { getMonthName } from "@/helper/functions";
+
+// skeleton
+import DetailRentalCarSkeleton from "@/skeleton/DetailRentalCarSkeleton";
 
 const DetailRental = () => {
   // ** context
@@ -119,7 +124,9 @@ const DetailRental = () => {
             </h2>
           </div>
         </div>
-      ) : null}
+      ) : (
+        <DetailRentalCarSkeleton />
+      )}
     </>
   );
 };
