@@ -20,6 +20,9 @@ import { InputsValueInterface, PickUpDropOffInterface } from "@/types";
 
 // toast
 import toast from "react-hot-toast";
+import connectToDB from "@/utils/db";
+import { GetServerSideProps } from "next";
+import { verifyToken } from "@/utils/auth";
 
 const Payment = () => {
   // ** router
@@ -157,3 +160,39 @@ const Payment = () => {
 };
 
 export default Payment;
+
+export const getServerSideProps: GetServerSideProps = async ({ req }) => {
+  try {
+    connectToDB();
+
+    const { token } = req.cookies;
+
+    if (!token) {
+      return {
+        props: {},
+        redirect: {
+          destination: "/",
+        },
+      };
+    }
+
+    const tokenPayload = verifyToken(token!);
+
+    if (!tokenPayload) {
+      return {
+        props: {},
+        redirect: {
+          destination: "/",
+        },
+      };
+    }
+
+    return {
+      props: {},
+    };
+  } catch (error) {
+    return {
+      props: {},
+    };
+  }
+};
