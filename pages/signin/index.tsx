@@ -23,6 +23,9 @@ import { useUser } from "@/context/UserContextProvider";
 import connectToDB from "@/utils/db";
 import { verifyToken } from "@/utils/auth";
 
+// constant
+import { BASE_API_URL } from "@/constant";
+
 const SignIn = () => {
   // ** states
   const [isLoading, setIsLoading] = useState<boolean>(false);
@@ -63,7 +66,7 @@ const SignIn = () => {
     try {
       setIsLoading(true);
       const response = await axios.post(
-        "http://localhost:3000/api/auth/signIn",
+        `${BASE_API_URL}/api/auth/signIn`,
         data
       );
 

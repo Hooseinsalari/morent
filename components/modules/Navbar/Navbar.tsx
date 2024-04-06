@@ -16,6 +16,9 @@ import axios from "axios";
 // context
 import { useUser } from "@/context/UserContextProvider";
 
+// constant
+import { BASE_API_URL } from "@/constant";
+
 const Navbar = () => {
   // ** states
   const [isLoading, setIsLoading] = useState<boolean>(true);
@@ -28,7 +31,7 @@ const Navbar = () => {
     const getData = async () => {
       try {
         const { data, status } = await axios.get(
-          "http://localhost:3000/api/auth/me"
+          `${BASE_API_URL}/api/auth/me`
         );
         if (status === 200) {
           setUser(data.data);

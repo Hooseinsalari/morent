@@ -1,10 +1,17 @@
+import { GetStaticPaths, GetStaticProps } from "next";
+import React from "react";
+import axios from "axios";
+
+// components
 import CarInfo from "@/components/templates/CarDetails/CarInfo/CarInfo";
 import CarReviews from "@/components/templates/CarDetails/CarReviews/CarReviews";
 import PopularCar from "@/components/templates/Index/PopularCar";
+
+// constant
+import { BASE_API_URL } from "@/constant";
+
+// type
 import { CarInterface, ReviewInterface } from "@/types";
-import axios from "axios";
-import { GetStaticPaths, GetStaticProps } from "next";
-import React from "react";
 
 interface Props {
   car: CarInterface;
@@ -25,7 +32,7 @@ const index = ({ car, reviews, popularCar }: Props) => {
 export default index;
 
 export const getStaticPaths: GetStaticPaths = async () => {
-  const { data } = await axios.get("http://localhost:3000/api/cars");
+  const { data } = await axios.get(`${BASE_API_URL}/api/cars`);
   const paths = data.data.map((car: CarInterface) => {
     return {
       params: { id: car._id },
@@ -40,17 +47,17 @@ export const getStaticProps: GetStaticProps = async (context) => {
 
   //? fetch car data
   const { data } = await axios.get(
-    `http://localhost:3000/api/cars/${params?.id}`
+    `${BASE_API_URL}/api/cars/${params?.id}`
   );
 
   //? fetch car reviews
   const { data: reviews } = await axios.get(
-    `http://localhost:3000/api/reviews/${params?.id}`
+    `${BASE_API_URL}/api/reviews/${params?.id}`
   );
 
   //? fetch cars
   const { data: popularCar } = (
-    await axios.get("http://localhost:3000/api/cars")
+    await axios.get(`${BASE_API_URL}/api/cars`)
   ).data;
 
   if (data.data) {

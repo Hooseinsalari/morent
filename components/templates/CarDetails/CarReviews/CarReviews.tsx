@@ -1,5 +1,8 @@
 import React, { useState } from "react";
 import Image from "next/image";
+import axios from "axios";
+import toast from "react-hot-toast";
+import { useRouter } from "next/router";
 
 // types
 import { ReviewInterface } from "@/types";
@@ -14,9 +17,9 @@ import AddNewReview from "./AddNewReview";
 
 // context
 import { useUser } from "@/context/UserContextProvider";
-import toast from "react-hot-toast";
-import { useRouter } from "next/router";
-import axios from "axios";
+
+// constant
+import { BASE_API_URL } from "@/constant";
 
 // interface
 interface Props {
@@ -64,7 +67,7 @@ const CarReviews = ({ reviews }: Props) => {
     try {
       if (reviewValues.comment && reviewValues.rating !== 0) {
         const response = await axios.post(
-          "http://localhost:3000/api/reviews/postReview",
+          `${BASE_API_URL}/api/reviews/postReview`,
           {
             comment: reviewValues.comment,
             rating: reviewValues.rating,

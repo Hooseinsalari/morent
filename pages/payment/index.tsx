@@ -11,19 +11,24 @@ import RentalInfo from "@/components/templates/Payment/RentalInfo";
 
 // context
 import { useRentalCart } from "@/context/RentalCartContextProvider";
+import { useUser } from "@/context/UserContextProvider";
 
 // helper
 import { isFilled } from "@/helper/functions";
 
 // types
 import { InputsValueInterface, PickUpDropOffInterface } from "@/types";
+import { GetServerSideProps } from "next";
 
 // toast
 import toast from "react-hot-toast";
+
+// utils
 import connectToDB from "@/utils/db";
-import { GetServerSideProps } from "next";
 import { verifyToken } from "@/utils/auth";
-import { useUser } from "@/context/UserContextProvider";
+
+// constant
+import { BASE_API_URL } from "@/constant";
 
 const Payment = () => {
   // ** router
@@ -100,7 +105,7 @@ const Payment = () => {
     } else {
     try {
       const user = await axios.put(
-        "http://localhost:3000/api/user/updateRentalCarList",
+        `${BASE_API_URL}/api/user/updateRentalCarList`,
         {
           carInfo: state.selectedCar,
           pickUpDetails,

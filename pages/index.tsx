@@ -1,4 +1,6 @@
 import { GetStaticProps } from "next";
+
+// utils
 import connectToDB from "@/utils/db";
 
 // models

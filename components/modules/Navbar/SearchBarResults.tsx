@@ -9,6 +9,9 @@ import { CarInterface } from "@/types";
 // router
 import { useRouter } from "next/router";
 
+// constant
+import { BASE_API_URL } from "@/constant";
+
 // type
 type SearchResultsType = [] | CarInterface[];
 
@@ -36,7 +39,7 @@ const SearchBarResults = ({
       setIsLoading(true);
       try {
         const { data } = await axios.get(
-          `http://localhost:3000/api/cars/search?name=${search}`
+          `${BASE_API_URL}/api/cars/search?name=${search}`
         );
 
         setSearchResults(data.data);

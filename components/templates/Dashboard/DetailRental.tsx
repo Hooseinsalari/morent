@@ -6,7 +6,6 @@ import { getMonthName } from "@/helper/functions";
 
 // type
 import { UserData } from "@/types";
-import Skeleton, { SkeletonTheme } from "react-loading-skeleton";
 
 const DetailRental = ({ user }: { user: UserData | null }) => {
   // ** var

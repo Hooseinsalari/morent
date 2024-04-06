@@ -5,10 +5,11 @@ import Insight from "@/public/svg/chart.svg";
 import Wallet from "@/public/svg/empty-wallet-change.svg";
 import Inbox from "@/public/svg/message.svg";
 import Calender from "@/public/svg/calendar.svg";
-import Setting from "@/public/svg/setting2.svg";
-import Help from "@/public/svg/info-circle.svg";
 
-export const citiesInIran: {id: number, name:string}[] = [
+// URL
+export const BASE_API_URL = process.env.NEXT_PUBLIC_BASE_API_URL;
+
+export const citiesInIran: { id: number; name: string }[] = [
   { id: 1, name: "Tehran" },
   { id: 2, name: "Mashhad" },
   { id: 3, name: "Isfahan" },
@@ -72,9 +73,4 @@ export const mainMenuItems = [
   { icon: Wallet, item: "Reimburse" },
   { icon: Inbox, item: "Inbox" },
   { icon: Calender, item: "Calender" },
-];
-
-export const preferencesItems = [
-  { icon: Setting, item: "Setting" },
-  { icon: Help, item: "Help & Center" },
 ];

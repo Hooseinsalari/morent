@@ -15,7 +15,7 @@ import Menu from "@/public/svg/menu.svg";
 import Logout from "@/public/svg/logout2.svg";
 
 // constant
-import { mainMenuItems, preferencesItems } from "@/constant";
+import { BASE_API_URL, mainMenuItems } from "@/constant";
 
 const Sidebar = () => {
   // ** router
@@ -29,7 +29,7 @@ const Sidebar = () => {
 
   // ** handler
   const logoutHandler = async () => {
-    const response = await axios.get("http://localhost:3000/api/auth/signOut");
+    const response = await axios.get(`${BASE_API_URL}/api/auth/signOut`);
     if (response.status === 200) {
       router.replace("/");
       toast.success(response.data.message);

@@ -1,5 +1,6 @@
 import { GetServerSideProps } from "next";
 import React, { useEffect, useState } from "react";
+import axios from "axios";
 
 // components
 import DetailRental from "@/components/templates/Dashboard/DetailRental";
@@ -7,14 +8,15 @@ import RecentTransaction from "@/components/templates/Dashboard/RecentTransactio
 import Sidebar from "@/components/templates/Dashboard/Sidebar";
 import TopRentedCar from "@/components/templates/Dashboard/TopRentedCar";
 
-// context
-import { useUser } from "@/context/UserContextProvider";
-
 // utils
 import { verifyToken } from "@/utils/auth";
 import connectToDB from "@/utils/db";
+
+// type
 import { UserData } from "@/types";
-import axios from "axios";
+
+// constant
+import { BASE_API_URL } from "@/constant";
 
 const Dashboard = () => {
   // ** context
@@ -22,7 +24,7 @@ const Dashboard = () => {
 
   useEffect(() => {
     const fetchData = async () => {
-      const res = await axios.get("http://localhost:3000/api/auth/me");
+      const res = await axios.get(`${BASE_API_URL}/api/auth/me`);
       if (res.status === 200) {
         setUser(res.data.data);
       }
