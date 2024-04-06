@@ -1,14 +1,15 @@
 import React from "react";
 
 // context
-import { useUser } from "@/context/UserContextProvider";
 import Image from "next/image";
+
+// function
 import { getMonthName } from "@/helper/functions";
 
-const RecentTransaction = () => {
-  // ** context
-  const { user } = useUser();
+// type
+import { UserData } from "@/types";
 
+const RecentTransaction = ({ user }: { user: UserData | null }) => {
   return (
     <div className="bg-white rounded-lg p-4 mt-8">
       <h1 className="text-secondinary-500 font-bold">Recent Transaction</h1>

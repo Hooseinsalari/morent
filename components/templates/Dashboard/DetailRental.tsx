@@ -1,16 +1,14 @@
 import Image from "next/image";
 import React from "react";
 
-// context
-import { useUser } from "@/context/UserContextProvider";
-
 // function
 import { getMonthName } from "@/helper/functions";
 
-const DetailRental = () => {
-  // ** context
-  const { user } = useUser();
+// type
+import { UserData } from "@/types";
+import Skeleton, { SkeletonTheme } from "react-loading-skeleton";
 
+const DetailRental = ({ user }: { user: UserData | null }) => {
   // ** var
   const lastCar: number = user?.rentedCars ? user?.rentedCars?.length - 1 : 0;
 
@@ -121,7 +119,9 @@ const DetailRental = () => {
             </h2>
           </div>
         </div>
-      ) : null}
+      ) : (
+        <div className="bg-white -z-10 rounded-lg p-4 lg:w-1/2"></div>
+      )}
     </>
   );
 };

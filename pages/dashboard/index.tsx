@@ -13,24 +13,37 @@ import { useUser } from "@/context/UserContextProvider";
 // utils
 import { verifyToken } from "@/utils/auth";
 import connectToDB from "@/utils/db";
+import { UserData } from "@/types";
+import axios from "axios";
 
 const Dashboard = () => {
   // ** context
-  const { user } = useUser();
+  const [user, setUser] = useState<UserData | null>(null);
+
+  useEffect(() => {
+    const fetchData = async () => {
+      const res = await axios.get("http://localhost:3000/api/auth/me");
+      if (res.status === 200) {
+        setUser(res.data.data);
+      }
+    };
+
+    fetchData();
+  }, []);
 
   // ** var
   let lastCar = user?.rentedCars ? user?.rentedCars?.length - 1 : 0;
 
   return (
     <div className="px-6 py-8 relative lg:static lg:flex lg:flex-row-reverse lg:justify-between lg:p-0 lg:gap-4">
-      <div className="lg:flex lg:justify-start lg:gap-x-8 lg:p-8 lg:w-full">
-        <DetailRental />
+      <div className="lg:flex lg:justify-start lg:gap-x-8 lg:p-8 lg:w-full items-start">
+        <DetailRental user={user} />
 
         <div
           className={`${user?.rentedCars[lastCar] ? "lg:w-1/2" : "lg:w-full"}`}
         >
           <TopRentedCar />
-          <RecentTransaction />
+          <RecentTransaction user={user} />
         </div>
       </div>
 
