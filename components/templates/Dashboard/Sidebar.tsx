@@ -55,7 +55,7 @@ const Sidebar = () => {
           >
             <Image className="w-8 h-8" src={Menu} alt="menu" />
           </button>
-          <div className="h-screen flex flex-col">
+          <div className="lg:h-screen flex flex-col">
             <div className="flex-grow overflow-y-auto">
               <div className="w-full">
                 <h1 className="text-secondinary-200 text-xs mb-5 tracking-wider ml-4">
@@ -82,7 +82,7 @@ const Sidebar = () => {
               </div>
             </div>
 
-            <div className="w-full my-8 flex-1">
+            <div className="w-full lg:my-8 my-5 flex-1">
               <button
                 onClick={logoutHandler}
                 className="flex w-full items-center p-4 hover:bg-red-500 duration-300 hover:fill-white rounded-xl text-secondinary-400 font-semibold hover:text-white mb-2"
