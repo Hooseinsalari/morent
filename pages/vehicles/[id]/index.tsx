@@ -12,6 +12,9 @@ import { BASE_API_URL } from "@/constant";
 
 // type
 import { CarInterface, ReviewInterface } from "@/types";
+import connectToDB from "@/utils/db";
+import carsModel from "@/models/car";
+import reviewsModel from "@/models/review";
 
 interface Props {
   car: CarInterface;
@@ -32,42 +35,52 @@ const index = ({ car, reviews, popularCar }: Props) => {
 export default index;
 
 export const getStaticPaths: GetStaticPaths = async () => {
-  const { data } = await axios.get(`${BASE_API_URL}/api/cars`);
-  const paths = data.data.map((car: CarInterface) => {
-    return {
-      params: { id: car._id },
-    };
-  });
+  try {
+    connectToDB();
 
-  return { paths, fallback: false };
+    const cars = await carsModel.find({});
+
+    const paths = cars.map((car: CarInterface) => {
+      return {
+        params: { id: car._id.toString() },
+      };
+    });
+
+    return { paths, fallback: "blocking" };
+  } catch (error) {
+    return { paths: [], fallback: "blocking" };
+  }
 };
 
 export const getStaticProps: GetStaticProps = async (context) => {
   const { params } = context;
 
-  //? fetch car data
-  const { data } = await axios.get(
-    `${BASE_API_URL}/api/cars/${params?.id}`
-  );
+  try {
+    connectToDB();
 
-  //? fetch car reviews
-  const { data: reviews } = await axios.get(
-    `${BASE_API_URL}/api/reviews/${params?.id}`
-  );
+    const car = await carsModel.findOne({ _id: params?.id });
 
-  //? fetch cars
-  const { data: popularCar } = (
-    await axios.get(`${BASE_API_URL}/api/cars`)
-  ).data;
+    const reviews = await reviewsModel
+      .find({ car: params?.id }, "-User.password")
+      .populate("user", "-password");
 
-  if (data.data) {
+    const popularCar = await carsModel.find({});
+
+    if (car) {
+      return {
+        props: {
+          car: JSON.parse(JSON.stringify(car)),
+          reviews: JSON.parse(JSON.stringify(reviews)),
+          popularCar: JSON.parse(JSON.stringify(popularCar)),
+        },
+        revalidate: 7200,
+      };
+    }
+  } catch (error) {
+    console.log("Fetch data in single car page faild!", error);
+
     return {
-      props: {
-        car: data.data,
-        reviews: reviews,
-        popularCar,
-      },
-      revalidate: 7200,
+      props: {},
     };
   }
 
