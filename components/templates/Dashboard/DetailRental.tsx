@@ -118,9 +118,7 @@ const DetailRental = ({ user }: { user: UserData | null }) => {
             </h2>
           </div>
         </div>
-      ) : (
-        <div className="bg-white -z-10 rounded-lg p-4 lg:w-1/2"></div>
-      )}
+      ) : null}
     </>
   );
 };
