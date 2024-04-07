@@ -18,6 +18,9 @@ import RentalCartContextProvider from "@/context/RentalCartContextProvider";
 // toast
 import { Toaster } from "react-hot-toast";
 
+// react aria
+import { I18nProvider } from "react-aria-components";
+
 const plus = Plus_Jakarta_Sans({
   subsets: ["latin"],
   weight: ["200", "300", "400", "500", "600", "700", "800"],
@@ -29,18 +32,20 @@ export default function App({ Component, pageProps }: AppProps) {
     <RentalCartContextProvider>
       <UserContextProvider>
         <ShowFilterContextProvider>
-          <div className={plus.className}>
-            <Navbar />
-            <Component {...pageProps} />
-            <Footer />
-          </div>
-          <Toaster
-            toastOptions={{
-              style: {
-                fontWeight: "600",
-              },
-            }}
-          />
+          <I18nProvider locale="en-US">
+            <div className={plus.className}>
+              <Navbar />
+              <Component {...pageProps} />
+              <Footer />
+            </div>
+            <Toaster
+              toastOptions={{
+                style: {
+                  fontWeight: "600",
+                },
+              }}
+            />
+          </I18nProvider>
         </ShowFilterContextProvider>
       </UserContextProvider>
     </RentalCartContextProvider>
