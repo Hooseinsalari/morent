@@ -6,7 +6,9 @@ const connectToDB = async () => {
       return false;
     }
 
-    await mongoose.connect("mongodb://0.0.0.0:27017/morent");
+    await mongoose.connect(
+      "mongodb+srv://secondhossein:CM6Wzi0VQgA7Il1D@cluster0.y5sv7gi.mongodb.net/"
+    );
     console.log("Data base connected Successfully");
   } catch (error: any) {
     console.log("Data base connection faild", error.message);
