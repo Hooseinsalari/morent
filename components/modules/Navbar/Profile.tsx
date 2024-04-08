@@ -7,7 +7,7 @@ import { useUser } from "@/context/UserContextProvider";
 
 // icons
 import LoginIcon from "@/public/svg/login.svg";
-import UserIcon from "@/public/svg/user-icon.svg";
+import ProfileContent from "./ProfileContent";
 
 const Profile = () => {
   // ** context
@@ -16,12 +16,7 @@ const Profile = () => {
   return (
     <div className="">
       {user ? (
-        <Link
-          href="/dashboard"
-          className="hover:shadow-md block cursor-pointer duration-200 border border-[#C3D4E966] rounded-full p-2"
-        >
-          <Image src={UserIcon} width={24} height={24} alt="User icon" />
-        </Link>
+        <ProfileContent />
       ) : (
         <Link
           href="/signin"
