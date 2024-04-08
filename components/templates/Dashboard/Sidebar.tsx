@@ -29,7 +29,10 @@ const Sidebar = () => {
 
   // ** handler
   const logoutHandler = async () => {
-    const response = await axios.get(`${BASE_API_URL}/api/auth/signOut`);
+    const response = await axios.post(`${BASE_API_URL}/api/auth/signOut`, {
+      key: "static-key"
+    });
+
     if (response.status === 200) {
       router.replace("/");
       toast.success(response.data.message);
