@@ -30,9 +30,7 @@ const Navbar = () => {
   useEffect(() => {
     const getData = async () => {
       try {
-        const { data, status } = await axios.get(
-          `${BASE_API_URL}/api/auth/me`
-        );
+        const { data, status } = await axios.get(`${BASE_API_URL}/api/auth/me`);
         if (status === 200) {
           setUser(data.data);
         }
@@ -52,7 +50,7 @@ const Navbar = () => {
     <div
       className={`${
         isLoading && !user ? "blur-sm" : "blur-none"
-      } flex flex-col md:flex-row bg-white md:items-center md:border-b md:border-[#C3D4E966] px-6 md:px-16 py-4`}
+      } relative z-50 flex flex-col md:flex-row bg-white md:items-center md:border-b md:border-[#C3D4E966] px-6 md:px-16 py-4`}
     >
       <div className="flex items-center justify-between mb-8 md:mb-0">
         <Link
