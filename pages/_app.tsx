@@ -54,6 +54,17 @@ export default function App({ Component, pageProps }: AppProps) {
   }, []);
 
   useEffect(() => {
+    const isIOS =
+      /iPad|iPhone|iPod/.test(navigator.userAgent) && !(window as any).MSStream;
+    const isStandaloneIOS = (window.navigator as any).standalone;
+
+    if (isIOS && !isStandaloneIOS) {
+      // Display custom message guiding the user to install the PWA
+      alert("Display prompt to install PWA on iOS.");
+    }
+  }, []);
+
+  useEffect(() => {
     console.log("========= prompt ========", prompt);
   }, [prompt]);
 
