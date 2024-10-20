@@ -20,6 +20,7 @@ import { Toaster } from "react-hot-toast";
 
 // react aria
 import { I18nProvider } from "react-aria-components";
+import { useEffect, useState } from "react";
 
 const plus = Plus_Jakarta_Sans({
   subsets: ["latin"],
@@ -28,6 +29,34 @@ const plus = Plus_Jakarta_Sans({
 });
 
 export default function App({ Component, pageProps }: AppProps) {
+  const [prompt, setPrompet] = useState(null);
+  const [isInstalled, setIsInstalled] = useState(false);
+
+  useEffect(() => {
+    const handlerBeforeInstallPrompt = (event: any) => {
+      event.preventDefault();
+
+      if (!window.matchMedia("(display-mode: standalone)").matches) {
+        setIsInstalled(true);
+        console.log("================= not insatlled =====================");
+        alert("================= not insatlled =====================");
+      }
+    };
+
+    window.addEventListener("beforeinstallprompt", handlerBeforeInstallPrompt);
+
+    return () => {
+      window.removeEventListener(
+        "beforeinstallprompt",
+        handlerBeforeInstallPrompt
+      );
+    };
+  }, []);
+
+  useEffect(() => {
+    console.log("========= prompt ========", prompt);
+  }, [prompt]);
+
   return (
     <RentalCartContextProvider>
       <UserContextProvider>
